@@ -14,7 +14,7 @@ This is a "Peer Evaluation" tool that allows students to leave feedback about th
 
 ### Running
 
-This project was written for `ruby 3.0.x` and `rails 6.1.x`. Ensure you've followed the [VM setup instructions](http://web.cse.ohio-state.edu/~giles.25/3901/resources/vm-install.html)
+This project was written for `ruby 3.0.1` and `rails 6.1.x`. Ensure you've followed the [VM setup instructions](http://web.cse.ohio-state.edu/~giles.25/3901/resources/vm-install.html)
 
 Now, to run the project:
 ```bash
