@@ -1,0 +1,9 @@
+<h1>Full system reset</h1>
+<p>This will wipe out the database. Please enter the reset key to continue</p>
+
+<%= form_with url: full_system_reset_for_testing_only_path do |f| %>
+	<%= f.label :key, "" %>
+	<%= f.text_field :key %>
+	
+	<%= f.submit "Drop Database" %>
+<% end %>
