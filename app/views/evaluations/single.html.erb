@@ -23,15 +23,15 @@
     <span>Agree</span>
   </div>
 
-  <%= f.label :quality, "You had significant disagreements with #{@target.name} while working on #{@project.name}" %>
-  <div id="quality">
+  <%= f.label :disagreements, "You had significant disagreements with #{@target.name} while working on #{@project.name}" %>
+  <div id="disagreements">
     <span>Disagree</span>
     <!-- Note! Agreeing here is a worse score than disagreeing -->
-    <%= f.radio_button :quality, 5 %>
-    <%= f.radio_button :quality, 4 %>
-    <%= f.radio_button :quality, 3 %>
-    <%= f.radio_button :quality, 2 %>
-    <%= f.radio_button :quality, 1 %>
+    <%= f.radio_button :disagreements, 5 %>
+    <%= f.radio_button :disagreements, 4 %>
+    <%= f.radio_button :disagreements, 3 %>
+    <%= f.radio_button :disagreements, 2 %>
+    <%= f.radio_button :disagreements, 1 %>
     <span>Agree</span>
   </div>
 
