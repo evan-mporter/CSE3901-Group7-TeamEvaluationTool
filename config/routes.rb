@@ -3,6 +3,8 @@ Rails.application.routes.draw do
 
   # Instructor routes
   resources :instructors
+  get '/instructors/login', to: 'instructor#display_login', as: :instructor_display_login
+  post '/instructors/login', to: 'instructor#login', as: :instructor_login
 
   # Student routes
   resources :students
