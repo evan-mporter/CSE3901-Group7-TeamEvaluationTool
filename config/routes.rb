@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   # Group routes
 
   # Evaluations routes
+  get '/evaluations/:group/:project', to: 'evaluations#landing', as: :begin_eval
+  get '/evaluations/:group/:project/done', to: 'evaluations#done', as: :done_eval
+  get '/evaluations/:group/:project/:member', to: 'evaluations#single', as: :continue_eval
 
   # Application routes
   root 'application#root'

@@ -1,0 +1,15 @@
+<h1>Evaluating <%= @group.name %> for <%= @project.name %></h1>
+
+<p>You will be leaving feedback about your team members in <%= @group.name %>. For each
+member, you will be asked questions about how much they participated in <%= @project.name %>,
+about the overall quality of their work, and about the number of disagreements you had
+with them throughout the project. You will also be allowed to leave additional comments.</p>
+
+<p>None of the feedback you leave here will be shared with the members of <%= @group.name %>.
+Only the instructors of this course will be able to see your feedback.</p>
+
+<p>Your feedback will be submitted per-person, each time you hit the "Continue" button.
+You can go back and edit your feedback after, if you wish.</p>
+
+<%= link_to "Back", students_path %>
+<%= link_to "Begin", next_btn_url %>
