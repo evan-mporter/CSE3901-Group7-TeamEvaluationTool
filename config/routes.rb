@@ -1,11 +1,12 @@
 Rails.application.routes.draw do
-<<<<<<< HEAD
-  get 'login', to: 'sessions#new'
-  post 'login', to: 'sessions#create'
-  delete 'logout', to: 'session#destroy'
+  get 'students/login', to: 'students#login'
+  post 'students/login', to: 'students#check'
+  delete 'students/logout', to: 'students#logout'
+  get 'students/email', to: 'students#email'
+  post 'students/email', to: 'students#emailchecker'
+  post 'students/instructors_new', to: 'students#instructor_new'
+  
   resources :students
-=======
->>>>>>> 168b5bcd582cd4ae3627aa875c220e3037853fda
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   # Instructor routes

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Lab6</title>
+    <title><%= @title || "Students Evaluation System" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -14,7 +14,7 @@
 
   <body>
 	<% flash.each do |type, msg| %>
-		<div>Flash <%= type %>! <%= msg %></div>
+		<div><%= msg %></div>
 	<% end %>
   
     <%= yield %>

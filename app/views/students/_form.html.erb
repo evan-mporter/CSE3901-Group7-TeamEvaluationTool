@@ -11,19 +11,35 @@
     </div>
   <% end %>
 
+  <%if !student.signed%>
+    <input type=hidden name=student[signed] value=true>
+  <%end%>
+
   <div class="field">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <% if ins_mode%>
+      <%= form.text_field :name %>
+    <%else%>
+      <%= form.text_field :name, disabled: true %>
+    <%end%>
   </div>
 
   <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password %>
+    <% if ins_mode%>
+      <%= form.text_field :email %>
+      <span>signed</span>
+    <%else%>
+      <%= form.text_field :email, disabled: true %>
+    <%end%>
   </div>
 
   <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
+    <%if ins_mode%>
+      <input type=hidden name=student[password] value=DefaultPass3901+>
+    <%else%>
+      <%= form.label :password %>
+      <%= form.text_field :password %>
+    <%end%>
   </div>
 
   <div class="actions">

@@ -1,5 +1,8 @@
-<h1>New Student</h1>
+<% @title = "Student Sign up" %>
+<h1></h1>
 
-<%= render 'form', student: @student %>
+<%= render 'form', student: @student, ins_mode: true%>
+
+
 
 <%= link_to 'Back', students_path %>
