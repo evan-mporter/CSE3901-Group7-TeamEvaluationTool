@@ -8,7 +8,16 @@ class StudentsController < ApplicationController
   def login_process
     set_student
   end
+
   def check
+    set_student
+    if @student.authenticate(params[:password])
+      #helper.student_log_in(@student)
+      redirect_to student_url(id: @student, mode: "student")
+    else 
+      flash.now[:alert] = "Wrong password!"+params[:password]
+      render "login_process"
+    end
   end
 
   def logout
@@ -25,9 +34,6 @@ class StudentsController < ApplicationController
   def emailchecker
     @student_email = params[:email].downcase
     @student = Student.find_by(email: @student_email)
-    print("<<<<<")
-    print(@student)
-    print(">>>>>")
     if !@student
       #TODO a notice that your email is not valid
       respond_to do |format|
@@ -40,7 +46,7 @@ class StudentsController < ApplicationController
       else
         #TODO a notice that you are not signed up, please sign up
           @moode = "signup"
-          redirect_to edit_student_url(@student)
+          redirect_to edit_student_url(id: @student, mode: "student")
       end
     end
   end
@@ -79,14 +85,6 @@ class StudentsController < ApplicationController
     #end
   end
 
-  def instructor_new
-    if !helpers.is_instr_logged_in?
-      redirect_to students_email_url
-    else
-      @student = Student.new
-    end
-  end
-
   # POST /students or /students.json
   def create
     @student = Student.new(student_params)
@@ -107,7 +105,6 @@ class StudentsController < ApplicationController
     respond_to do |format|
       if @student.update(student_params)
         format.html { redirect_to student_url(@student), notice: "All set!" }
-        format.json { render :show, status: :ok, location: @student }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @student.errors, status: :unprocessable_entity }

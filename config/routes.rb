@@ -3,12 +3,14 @@ Rails.application.routes.draw do
   delete 'students/logout', to: 'students#logout'
   get 'students/email', to: 'students#email'
   post 'students/email', to: 'students#emailchecker'
-  post 'students/instructors_new', to: 'students#instructor_new'
   get 'students/signup', to: 'students#signup'
-  get 'students/login/:id', to: 'students#login_process'
-  post 'students/login/:id', to: 'students#check'
+  get 'student/login/:id', to: 'students#login_process'
+  post 'student/login/:id', to: 'students#check'
+  get 'student/:id/edit/:mode', to: 'students#edit'
+  get 'student/:id/:mode', to: 'students#show
+  '
   
-  resources :students
+  resources :students, :except => [:edit, :show]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   # Instructor routes

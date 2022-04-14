@@ -1,13 +1,17 @@
 <% if @mode != "signup" %>
     <% @title = "Information Edit" %>
-    <h1>Editing Student</h1>
+    <h1>Editing Information</h1>
 <%else%>
-    <% @title = "Sign up" %>
-    <h1>Sign up account</h1>
-    <p>Your account is not signed up yet. Please sign up.
-    <p>Please verify that the name below is yours. Contact instructors for questions or update your name.
+    <%if params[:mode] == "student"%>
+        <% @title = "Sign up" %>
+        <h1>Sign up account</h1>
+        <p>Your account is not signed up yet. Please sign up.
+        <p>Please verify that the name below is yours. Contact instructors for questions or update your name.
+    <%else%>
+        <h1>Edit basic account information for student sign up.</h1>
+    <%end%>
 <%end%>
-<%= render 'form', student: @student, ins_mode: false %>
+<%= render 'form', student: @student, ins_mode: params[:mode], sign_mode: @mode %>
 
 <% if @mode != "signup" %>
     <%= link_to 'Show', @student %>

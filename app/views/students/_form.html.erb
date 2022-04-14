@@ -1,7 +1,7 @@
 <%= form_with(model: student) do |form| %>
   <% if student.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+      <h2><%= pluralize(student.errors.count, "error") %> Notice:</h2>
 
       <ul>
         <% student.errors.each do |error| %>
@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <%if !student.signed%>
+  <%if !student.signed && ins_mode == "student"%>
     <input type=hidden name=student[signed] value=true>
   <%end%>
 
@@ -21,25 +21,28 @@
   </div>
 
   <div class="field">
-    <% if ins_mode%>
+    <% if ins_mode == "instructor"%>
+      <%= form.label :email %>
       <%= form.text_field :email %>
-      <span>signed</span>
     <%else%>
+      <%= form.label :email %>
       <%= form.text_field :email, disabled: true %>
     <%end%>
   </div>
 
   <div class="field">
-    <%if ins_mode%>
+    <%if ins_mode == "instructor"%>
       <input type=hidden name=student[password] value=DefaultPass3901+>
     <%else%>
       <%= form.label :password %>
-      <%= form.text_field :password %>
+      <%= form.password_field :password %>
     <%end%>
   </div>
 
   <div class="actions">
-    <%if @mode == "signup"%>
+    <%if ins_mode == "instructor"%>
+      <%= form.submit "Set up"%>
+    <%elsif @mode == "signup"%>
       <%= form.submit "Sign up account"%>
     <%else%>
       <%= form.submit "Save changes"%>

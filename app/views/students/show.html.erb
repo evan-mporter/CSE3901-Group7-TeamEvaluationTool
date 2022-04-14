@@ -7,14 +7,48 @@
 </p>
 
 <p>
-  <strong>Password:</strong>
-  <%= @student.password %>
-</p>
-
-<p>
   <strong>Email:</strong>
   <%= @student.email %>
 </p>
 
-<%= link_to 'Edit', edit_student_path(@student) %> |
+<% if params[:mode] = "student"%>
+  <p>Open project feedbacks:</p>
+  
+<%
+=begin
+%>
+  <ol>
+  <%@student.groups.each do |g|%>
+    <%g.projects.each do |p|%>
+      <%find = false%>
+      <%p.feedback_items.each do |f|%>
+        <%if f.author == @student.name%>
+          <%find = true%>
+        <%end%>
+      <%end%>
+      <%if !find%>
+        <li><%= p.name%><%= link_to "complete this feedback", p%></li>
+      <%end%>
+    <%end%>
+  <%end%>
+  </ol>
+<%
+=end
+%>
+
+<%else%>
+  <p>Recent feedbacks:</p>
+<%
+=begin
+%>
+  <%@student.feedback_items.each do |f|%>
+    <li><%= link_to f.name, f %></li>
+  <%end%>
+<%
+=end
+%>
+<%end%>
+
+
+<%= link_to 'Edit', edit_student_path(id: @student, mode: params[:mode]) %> |
 <%= link_to 'Back', students_path %>

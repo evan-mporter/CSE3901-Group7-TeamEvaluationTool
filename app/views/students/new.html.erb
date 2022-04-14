@@ -1,8 +1,6 @@
 <% @title = "Student Sign up" %>
-<h1></h1>
+<h1>Create student account</h1>
 
-<%= render 'form', student: @student, ins_mode: true%>
-
-
+<%= render 'form', student: @student, ins_mode: "instructor"%>
 
 <%= link_to 'Back', students_path %>
