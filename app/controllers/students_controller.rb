@@ -2,11 +2,12 @@ class StudentsController < ApplicationController
   before_action :set_student, only: %i[ show edit update destroy ]
 
   def login
-    if @student == nil
-      redirect_to students_email_url
-    end
+    redirect_to students_email_url
   end
 
+  def login_process
+    set_student
+  end
   def check
   end
 
@@ -14,14 +15,19 @@ class StudentsController < ApplicationController
   end
 
   def email
+    
   end
 
   def signup
+      redirect_to students_email_url
   end
 
   def emailchecker
-    @student_email = params[:email]
+    @student_email = params[:email].downcase
     @student = Student.find_by(email: @student_email)
+    print("<<<<<")
+    print(@student)
+    print(">>>>>")
     if !@student
       #TODO a notice that your email is not valid
       respond_to do |format|
@@ -30,13 +36,11 @@ class StudentsController < ApplicationController
       end
     else
       if @student.signed
-        respond_to do |format|
-          format.html { redirect_to students_login_url(:student => @student), notice: "Please sign in with your password.", mode: "signup"}
-          format.json { head :no_content }
-        end
+          redirect_to url_for(action: "login_process", id: @student)
       else
         #TODO a notice that you are not signed up, please sign up
-          redirect_to edit_student_url(@student), notice: "Since this account is not signed up, please sign up.", mode: 'signup' 
+          @moode = "signup"
+          redirect_to edit_student_url(@student)
       end
     end
   end
@@ -53,9 +57,9 @@ class StudentsController < ApplicationController
 
   # GET /students/1 or /students/1.json
   def show
-    if !helpers.is_logged_in?
-      redirect_to students_email_url
-    end
+  #  if !helpers.is_logged_in?
+  #    redirect_to students_email_url
+  #  end
   end
 
   # GET /students/new
@@ -65,6 +69,11 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+    @mode = "editing"
+    set_student
+    if !@student.signed
+      @mode = "signup"
+    end
     #if !helpers.is_logged_in?
     #  redirect_to students_email_url
     #end
@@ -81,6 +90,7 @@ class StudentsController < ApplicationController
   # POST /students or /students.json
   def create
     @student = Student.new(student_params)
+    @student.email = @student.email.downcase
     respond_to do |format|
       if @student.save
         format.html { redirect_to student_url(@student), notice: "Student was successfully created." }
@@ -96,7 +106,7 @@ class StudentsController < ApplicationController
   def update
     respond_to do |format|
       if @student.update(student_params)
-        format.html { redirect_to student_url(@student), notice: "Student was successfully updated." }
+        format.html { redirect_to student_url(@student), notice: "All set!" }
         format.json { render :show, status: :ok, location: @student }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -123,6 +133,6 @@ class StudentsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def student_params
-      params.require(:student).permit(:name, :password, :email)
+      params.require(:student).permit(:signed, :name, :password, :email)
     end
 end

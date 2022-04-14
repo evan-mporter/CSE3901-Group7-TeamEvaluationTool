@@ -1,11 +1,15 @@
-<% if mode != "signup" %>
+<% if @mode != "signup" %>
     <% @title = "Information Edit" %>
     <h1>Editing Student</h1>
 <%else%>
     <% @title = "Sign up" %>
     <h1>Sign up account</h1>
+    <p>Your account is not signed up yet. Please sign up.
+    <p>Please verify that the name below is yours. Contact instructors for questions or update your name.
 <%end%>
 <%= render 'form', student: @student, ins_mode: false %>
 
-<%= link_to 'Show', @student %> |
+<% if @mode != "signup" %>
+    <%= link_to 'Show', @student %>
+<%end%>
 <%= link_to 'Back', students_path %>

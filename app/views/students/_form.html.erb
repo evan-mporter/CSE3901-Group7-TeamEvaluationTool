@@ -16,12 +16,8 @@
   <%end%>
 
   <div class="field">
-    <%= form.label :name %>
-    <% if ins_mode%>
+      <%= form.label :name %>
       <%= form.text_field :name %>
-    <%else%>
-      <%= form.text_field :name, disabled: true %>
-    <%end%>
   </div>
 
   <div class="field">
@@ -43,6 +39,10 @@
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%if @mode == "signup"%>
+      <%= form.submit "Sign up account"%>
+    <%else%>
+      <%= form.submit "Save changes"%>
+    <%end%>
   </div>
 <% end %>

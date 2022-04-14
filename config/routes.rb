@@ -1,10 +1,12 @@
 Rails.application.routes.draw do
   get 'students/login', to: 'students#login'
-  post 'students/login', to: 'students#check'
   delete 'students/logout', to: 'students#logout'
   get 'students/email', to: 'students#email'
   post 'students/email', to: 'students#emailchecker'
   post 'students/instructors_new', to: 'students#instructor_new'
+  get 'students/signup', to: 'students#signup'
+  get 'students/login/:id', to: 'students#login_process'
+  post 'students/login/:id', to: 'students#check'
   
   resources :students
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
