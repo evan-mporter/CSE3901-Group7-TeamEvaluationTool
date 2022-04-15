@@ -1,4 +1,6 @@
 class StudentsController < ApplicationController
+  
+
   before_action :set_student, only: %i[ show edit update destroy ]
 
   def login
@@ -12,7 +14,7 @@ class StudentsController < ApplicationController
   def check
     set_student
     if @student.authenticate(params[:password])
-      #helper.student_log_in(@student)
+      #self.log_in_student(@student)
       redirect_to student_url(id: @student, mode: "student")
     else 
       flash.now[:alert] = "Wrong password!"+params[:password]
@@ -45,7 +47,7 @@ class StudentsController < ApplicationController
           redirect_to url_for(action: "login_process", id: @student)
       else
         #TODO a notice that you are not signed up, please sign up
-          @moode = "signup"
+          @mode = "signup"
           redirect_to edit_student_url(id: @student, mode: "student")
       end
     end

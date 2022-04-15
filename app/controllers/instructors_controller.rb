@@ -1,13 +1,58 @@
 class InstructorsController < ApplicationController
   before_action :set_instructor, only: %i[ show edit update destroy ]
 
+  def login
+    redirect_to instructors_email_url
+  end
+
+  def login_process
+    set_instructor
+  end
+
+  def check
+    set_instructor
+    if @instructor.authenticate(params[:password])
+      redirect_to instructor_url(id: @instructor, mode: "instructor")
+    else 
+      flash.now[:alert] = "Wrong password!"+params[:password]
+      render "login_process"
+    end
+  end
+
+  def emailchecker
+    @instructor_email = params[:email].downcase
+    @instructor = Instructor.find_by(email: @instructor_email)
+    if !@instructor
+      respond_to do |format|
+        format.html { redirect_to instructors_email_url, notice: "This email is not registered. Use another one." }
+        format.json { head :no_content }
+      end
+    else
+      redirect_to url_for(action: "login_process", id: @instructor)
+    end
+  end
+
+  def logout
+
+  end
+
+  def email
+
+  end
+
+  def signup
+    redirect_to instructors_email_url
+  end
+
   # GET /instructors or /instructors.json
   def index
     @instructors = Instructor.all
+    @instructors = @instructors.sort
   end
 
   # GET /instructors/1 or /instructors/1.json
   def show
+
   end
 
   # GET /instructors/new
@@ -17,6 +62,11 @@ class InstructorsController < ApplicationController
 
   # GET /instructors/1/edit
   def edit
+    @mode = "editing"
+    set_instructor
+    if !@instructor.signed
+      @mode = "signup"
+    end
   end
 
   # POST /instructors or /instructors.json
@@ -38,8 +88,7 @@ class InstructorsController < ApplicationController
   def update
     respond_to do |format|
       if @instructor.update(instructor_params)
-        format.html { redirect_to instructor_url(@instructor), notice: "Instructor was successfully updated." }
-        format.json { render :show, status: :ok, location: @instructor }
+        format.html { redirect_to instructor_url(@instructor), notice: "All set!" }
       else
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @instructor.errors, status: :unprocessable_entity }
@@ -55,16 +104,6 @@ class InstructorsController < ApplicationController
       format.html { redirect_to instructors_url, notice: "Instructor was successfully destroyed." }
       format.json { head :no_content }
     end
-  end
-
-  #TODO: Implement these
-
-  def display_login
-
-  end
-
-  def login
-   
   end
 
   private

@@ -1,0 +1,11 @@
+<% @title = "Instructor Login" %>
+
+<p>Please enter your password below</p>
+
+<%= form_with url: url_for(action: "login_process", id: @instructor), local: true, method: :post do %>
+    <div>
+        <%= label_tag "password" %>
+        <%= password_field_tag "password", nil %>
+        <button type="submit">Sign in</button>
+    </div>
+<% end %>

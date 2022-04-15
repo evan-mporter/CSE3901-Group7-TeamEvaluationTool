@@ -7,16 +7,23 @@ Rails.application.routes.draw do
   get 'student/login/:id', to: 'students#login_process'
   post 'student/login/:id', to: 'students#check'
   get 'student/:id/edit/:mode', to: 'students#edit'
-  get 'student/:id/:mode', to: 'students#show
-  '
+  get 'student/:id/:mode', to: 'students#show'
   
   resources :students, :except => [:edit, :show]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   # Instructor routes
+  get 'instructors/login', to: 'instructors#login'
+  get 'instructor/login/:id', to: 'instructors#login_process'
+  post 'instructor/login/:id', to: 'instructors#check'
+  delete 'instructors/logout', to: 'instructors#logout'
+  get 'instructors/signup', to: 'instructors#signup'
+  get 'instructors/email', to: 'instructors#email'
+  post 'instructors/email', to: 'instructors#emailchecker'
+  get 'instructor/:id/edit', to: 'instructors#edit'
+  get 'instructor/:id', to: 'instructors#show'
+
   resources :instructors
-  get '/instructors/login', to: 'instructor#display_login', as: :instructor_display_login
-  post '/instructors/login', to: 'instructor#login', as: :instructor_login
 
   # Student routes
   resources :students

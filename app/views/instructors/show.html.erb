@@ -1,19 +1,20 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Name:</strong>
-  <%= @instructor.name %>
-</p>
+<% if params[:mode] == "instructor" %>
+  <p>
+    <strong>Name:</strong>
+    <%= @instructor.name %>
+  </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @instructor.email %>
-</p>
+  <p>
+    <strong>Email:</strong>
+    <%= @instructor.email %>
+  </p>
 
-<p>
-  <strong>Password:</strong>
-  <%= @instructor.password %>
-</p>
-
-<%= link_to 'Edit', edit_instructor_path(@instructor) %> |
-<%= link_to 'Back', instructors_path %>
+  <%= link_to 'Edit', edit_instructor_path(@instructor) %> |
+  <%= link_to 'Back', :back %> |
+  <%= link_to 'Add Instructor Account', new_instructor_path %>
+<% else %>
+  <h1> You are not authorized to view this page. </h1>
+  <%= link_to 'Back', :back%>
+<% end %>

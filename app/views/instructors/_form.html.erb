@@ -11,6 +11,10 @@
     </div>
   <% end %>
 
+  <%if !instructor.signed && ins_mode == "instructor"%>
+    <input type=hidden name=instructor[signed] value=true>
+  <%end%>
+
   <div class="field">
     <%= form.label :name %>
     <%= form.text_field :name %>
@@ -22,11 +26,17 @@
   </div>
 
   <div class="field">
-    <%= form.label :password %>
-    <%= form.text_field :password %>
+      <%= form.label :password %>
+      <%= form.password_field :password %>
   </div>
 
   <div class="actions">
-    <%= form.submit %>
+    <%if ins_mode == "instructor"%>
+      <%= form.submit "Set up"%>
+    <%elsif @mode == "signup"%>
+      <%= form.submit "Sign up account"%>
+    <%else%>
+      <%= form.submit "Save changes"%>
+    <%end%>
   </div>
 <% end %>
