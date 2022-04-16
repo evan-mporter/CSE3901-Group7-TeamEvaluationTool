@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :projects
+  resources :groups
   get 'students/login', to: 'students#login'
   delete 'students/logout', to: 'students#logout'
   get 'students/email', to: 'students#email'
