@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_17_040817) do
+ActiveRecord::Schema.define(version: 2022_04_17_053900) do
 
   create_table "feedback_items", force: :cascade do |t|
     t.integer "project_id", null: false
@@ -22,8 +22,6 @@ ActiveRecord::Schema.define(version: 2022_04_17_040817) do
     t.text "comments"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index "\"project\"", name: "index_feedback_items_on_project"
-    t.index "\"taget_id\"", name: "index_feedback_items_on_taget_id"
     t.index ["author_id"], name: "index_feedback_items_on_author_id"
     t.index ["project_id"], name: "index_feedback_items_on_project_id"
     t.index ["target_id"], name: "index_feedback_items_on_target_id"
@@ -73,7 +71,7 @@ ActiveRecord::Schema.define(version: 2022_04_17_040817) do
     t.boolean "signed", default: false
   end
 
-  add_foreign_key "feedback_items", "authors"
   add_foreign_key "feedback_items", "projects"
-  add_foreign_key "feedback_items", "targets"
+  add_foreign_key "feedback_items", "students", column: "author_id"
+  add_foreign_key "feedback_items", "students", column: "target_id"
 end

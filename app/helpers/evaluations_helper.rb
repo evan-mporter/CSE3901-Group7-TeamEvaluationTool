@@ -3,11 +3,11 @@ module EvaluationsHelper
   def back_btn_url
     member = params[:member].to_i
     if params[:action] == "done"
-      continue_eval_path(member: @group.students.length - 1)
+      continue_eval_url(member: @group.students.length - 1)
     elsif member == 0
-      begin_eval_path
+      begin_eval_url
     else
-      continue_eval_path(member: member - 1)
+      continue_eval_url(member: member - 1)
     end
   end
 
@@ -15,11 +15,11 @@ module EvaluationsHelper
   def next_btn_url
     member = params[:member].to_i
     if params[:action] == "landing"
-      continue_eval_path(member: 0)
+      continue_eval_url(member: 0)
     elsif member < (@group.students.length - 1)
-      continue_eval_path(member: member + 1)
+      continue_eval_url(member: member + 1)
     else
-      done_eval_path
+      done_eval_url
     end
   end
 

@@ -5,37 +5,23 @@ class EvaluationsController < ApplicationController
   end
 
   def single
-    @feedback_item = nil # TODO!
+    # Try to look up an existing feedback item
+    @feedback_item = FeedbackItem.where(author_id: 1, # TODO: current_student.id,
+                                        target_id: @target.id,
+                                        project_id: @project.id)
+                                        .first
+
+    # Fallback to new item
+    @feedback_item = FeedbackItem.new if @feedback_item.nil?
   end
 
   def done
   end
 
   private
-    class FakeGroup
-      attr_reader :name
-      attr_reader :students
-      def initialize num
-        @name = "Group #{num}"
-        @students = [
-          Student.new(name: "John Doe"),
-          Student.new(name: "Alice Doe"),
-          Student.new(name: "Foo Bar"),
-        ]
-      end
-    end
-
-    class FakeProject
-      attr_reader :name
-      def initialize num
-        @name = "Project #{num}"
-      end
-    end
-
     def set_props
-      # TODO
-      @group = FakeGroup.new params[:group]
-      @project = FakeProject.new params[:project]
+      @group = Group.find params[:group]
+      @project = Project.find params[:project]
       @target = @group.students[params[:member].to_i] unless params[:member].nil?
     end
 end
