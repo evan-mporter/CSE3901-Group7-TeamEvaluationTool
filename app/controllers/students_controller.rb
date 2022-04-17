@@ -56,8 +56,8 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    #if !helpers.is_instr_logged_in?
-    #  redirect_to student_url(helpers.current_student)
+    #if !is_inst_logged_in?
+    #  redirect_to student_url(@current_student)
     #end
     @students = Student.all
     @students = @students.sort
@@ -65,9 +65,9 @@ class StudentsController < ApplicationController
 
   # GET /students/1 or /students/1.json
   def show
-  #  if !helpers.is_logged_in?
-  #    redirect_to students_email_url
-  #  end
+    #if !is_logged_in?
+    #  redirect_to students_email_url
+    #end
   end
 
   # GET /students/new
@@ -83,7 +83,7 @@ class StudentsController < ApplicationController
       @mode = "signup"
     end
     #if !helpers.is_logged_in?
-    #  redirect_to students_email_url
+     #redirect_to students_email_url
     #end
   end
 

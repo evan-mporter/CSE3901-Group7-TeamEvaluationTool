@@ -10,7 +10,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_15_220414) do
+ActiveRecord::Schema.define(version: 2022_04_16_161207) do
+
+  create_table "groups", force: :cascade do |t|
+    t.string "name"
+    t.integer "students_id"
+    t.integer "feedback_items_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["feedback_items_id"], name: "index_groups_on_feedback_items_id"
+    t.index ["students_id"], name: "index_groups_on_students_id"
+  end
 
   create_table "instructors", force: :cascade do |t|
     t.string "name"
@@ -20,6 +30,13 @@ ActiveRecord::Schema.define(version: 2022_04_15_220414) do
     t.datetime "updated_at", precision: 6, null: false
     t.boolean "signed", default: false
     t.string "password_digest"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "name"
+    t.boolean "is_open"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "students", force: :cascade do |t|

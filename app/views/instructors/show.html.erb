@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<% if params[:mode] == "instructor" %>
+<% if is_inst_logged_in? %>
   <p>
     <strong>Name:</strong>
     <%= @instructor.name %>
@@ -11,9 +11,16 @@
     <%= @instructor.email %>
   </p>
 
+  <p>Students</p>
+
+  <p>Groups</p>
+
+  <p>Projects</p>
+
   <%= link_to 'Edit', edit_instructor_path(@instructor) %> |
   <%= link_to 'Back', :back %> |
-  <%= link_to 'Add Instructor Account', new_instructor_path %>
+  <%= link_to 'Add Instructor Account', new_instructor_path %> |
+  <%= link_to 'Logout', instructors_logout_url %>
 <% else %>
   <h1> You are not authorized to view this page. </h1>
   <%= link_to 'Back', :back%>

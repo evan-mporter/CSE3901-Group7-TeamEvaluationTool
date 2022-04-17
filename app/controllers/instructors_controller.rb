@@ -12,6 +12,7 @@ class InstructorsController < ApplicationController
   def check
     set_instructor
     if @instructor.authenticate(params[:password])
+      log_in_instructor(@instructor)
       redirect_to instructor_url(id: @instructor, mode: "instructor")
     else 
       flash.now[:alert] = "Wrong password!"+params[:password]
@@ -33,7 +34,8 @@ class InstructorsController < ApplicationController
   end
 
   def logout
-
+    log_out
+    redirect_to instructors_email_url, notice: "You have been successfully logged out."
   end
 
   def email
@@ -52,7 +54,9 @@ class InstructorsController < ApplicationController
 
   # GET /instructors/1 or /instructors/1.json
   def show
-
+    if !is_logged_in?
+      redirect_to instructors_email_url
+    end
   end
 
   # GET /instructors/new
@@ -67,6 +71,9 @@ class InstructorsController < ApplicationController
     if !@instructor.signed
       @mode = "signup"
     end
+    if !is_logged_in?
+      redirect_to instructors_email_url
+     end
   end
 
   # POST /instructors or /instructors.json
@@ -98,8 +105,8 @@ class InstructorsController < ApplicationController
 
   # DELETE /instructors/1 or /instructors/1.json
   def destroy
+    session_check(@instructor)
     @instructor.destroy
-
     respond_to do |format|
       format.html { redirect_to instructors_url, notice: "Instructor was successfully destroyed." }
       format.json { head :no_content }

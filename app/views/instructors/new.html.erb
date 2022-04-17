@@ -1,11 +1,11 @@
 
-<% if params[:mode] == "instructor" || !Instructor.exists? %>
+<% if is_inst_logged_in? || !Instructor.exists? %>
 
     <h1>Create Instructor Account</h1>
 
     <%= render 'form', instructor: @instructor, ins_mode: "instructor"%>
 
-    <%= link_to 'Back', instructors_path %>
+    <%= link_to 'Back', :back %>
 
 <%  else %>
     <h1> You are not authorized to view this page. </h1>

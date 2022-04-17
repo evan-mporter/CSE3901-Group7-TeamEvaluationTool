@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   get 'instructors/login', to: 'instructors#login'
   get 'instructor/login/:id', to: 'instructors#login_process'
   post 'instructor/login/:id', to: 'instructors#check'
-  delete 'instructors/logout', to: 'instructors#logout'
+  get 'instructors/logout', to: 'instructors#logout'
   get 'instructors/signup', to: 'instructors#signup'
   get 'instructors/email', to: 'instructors#email'
   post 'instructors/email', to: 'instructors#emailchecker'

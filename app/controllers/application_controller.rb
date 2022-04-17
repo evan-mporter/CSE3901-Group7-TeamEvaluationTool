@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+  include LoginHelper
   def root
     render html: "TODO!"
   end

@@ -8,7 +8,7 @@
         <p>Your account is not signed up yet. Please sign up.
         <p>Please verify that the name below is yours.
     <%else%>
-        <h1>Edit basic account information for student sign up.</h1>
+        <h1>Edit basic account information.</h1>
     <%end%>
 <%end%>
 <%= render 'form', instructor: @instructor, ins_mode: params[:mode], sign_mode: @mode %>
@@ -16,4 +16,4 @@
 <% if @mode != "signup" %>
     <%= link_to 'Show', @instructor %>
 <%end%>
-<%= link_to 'Back', instructors_path %>
+<%= link_to 'Back', :back %>
