@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  author: one
+  target: one
+  participation: 1
+  quality: 1
+  disagreements: 1
+  comments: MyText
+
+two:
+  project: two
+  author: two
+  target: two
+  participation: 1
+  quality: 1
+  disagreements: 1
+  comments: MyText

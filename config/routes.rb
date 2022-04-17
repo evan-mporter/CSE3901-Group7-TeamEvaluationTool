@@ -1,17 +1,4 @@
 Rails.application.routes.draw do
-  resources :projects
-  resources :groups
-  get 'students/login', to: 'students#login'
-  delete 'students/logout', to: 'students#logout'
-  get 'students/email', to: 'students#email'
-  post 'students/email', to: 'students#emailchecker'
-  get 'students/signup', to: 'students#signup'
-  get 'student/login/:id', to: 'students#login_process'
-  post 'student/login/:id', to: 'students#check'
-  get 'student/:id/edit/:mode', to: 'students#edit'
-  get 'student/:id/:mode', to: 'students#show'
-  
-  resources :students, :except => [:edit, :show]
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 
   # Instructor routes
@@ -24,13 +11,29 @@ Rails.application.routes.draw do
   post 'instructors/email', to: 'instructors#emailchecker'
   get 'instructor/:id/edit', to: 'instructors#edit'
   get 'instructor/:id', to: 'instructors#show'
-
   resources :instructors
 
   # Student routes
+  get 'students/login', to: 'students#login'
+  delete 'students/logout', to: 'students#logout'
+  get 'students/email', to: 'students#email'
+  post 'students/email', to: 'students#emailchecker'
+  get 'students/signup', to: 'students#signup'
+  get 'student/login/:id', to: 'students#login_process'
+  post 'student/login/:id', to: 'students#check'
+  get 'student/:id/edit/:mode', to: 'students#edit'
+  get 'student/:id/:mode', to: 'students#show'
   resources :students
 
   # Group routes
+  resources :groups
+
+  # Project routes
+  resources :projects
+
+  # FeedbackItem routes
+  post '/feedback_items', to: 'feedback_items#update'
+  get '/feedback_items/:id', to: 'feedback_items#show'
 
   # Evaluations routes
   get '/evaluations/:group/:project', to: 'evaluations#landing', as: :begin_eval

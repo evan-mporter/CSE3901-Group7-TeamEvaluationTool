@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_16_161207) do
+ActiveRecord::Schema.define(version: 2022_04_17_033538) do
+
+  create_table "feedback_items", force: :cascade do |t|
+    t.integer "project_id", null: false
+    t.integer "author_id", null: false
+    t.integer "target_id", null: false
+    t.integer "participation"
+    t.integer "quality"
+    t.integer "disagreements"
+    t.text "comments"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index "\"project\"", name: "index_feedback_items_on_project"
+    t.index "\"taget_id\"", name: "index_feedback_items_on_taget_id"
+    t.index ["author_id"], name: "index_feedback_items_on_author_id"
+    t.index ["project_id"], name: "index_feedback_items_on_project_id"
+    t.index ["target_id"], name: "index_feedback_items_on_target_id"
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string "name"
@@ -49,4 +66,7 @@ ActiveRecord::Schema.define(version: 2022_04_16_161207) do
     t.boolean "signed", default: false
   end
 
+  add_foreign_key "feedback_items", "authors"
+  add_foreign_key "feedback_items", "projects"
+  add_foreign_key "feedback_items", "targets"
 end
