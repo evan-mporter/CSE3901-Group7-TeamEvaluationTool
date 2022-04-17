@@ -1,8 +1,7 @@
 class Student < ApplicationRecord
     has_secure_password
     has_and_belongs_to_many :groups
-    #TODO: Is this should be feedbackItems or feedbackitems or feedback_items?
-    has_many :feedback_items, dependent: :destroy
+    has_many :feedback_items, dependent: :destroy, foreign_key: :target_id, inverse_of: :target
     validates :name, presence: true, length: { maximum: 50 }
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true

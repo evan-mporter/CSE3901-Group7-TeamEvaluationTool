@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_17_033538) do
+ActiveRecord::Schema.define(version: 2022_04_17_040817) do
 
   create_table "feedback_items", force: :cascade do |t|
     t.integer "project_id", null: false
@@ -37,6 +37,13 @@ ActiveRecord::Schema.define(version: 2022_04_17_033538) do
     t.datetime "updated_at", precision: 6, null: false
     t.index ["feedback_items_id"], name: "index_groups_on_feedback_items_id"
     t.index ["students_id"], name: "index_groups_on_students_id"
+  end
+
+  create_table "groups_students", id: false, force: :cascade do |t|
+    t.integer "student_id", null: false
+    t.integer "group_id", null: false
+    t.index ["group_id", "student_id"], name: "index_groups_students_on_group_id_and_student_id"
+    t.index ["student_id", "group_id"], name: "index_groups_students_on_student_id_and_group_id"
   end
 
   create_table "instructors", force: :cascade do |t|

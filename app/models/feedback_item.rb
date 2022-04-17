@@ -1,7 +1,7 @@
 class FeedbackItem < ApplicationRecord
   belongs_to :project
-  belongs_to :author, class_name: :student
-  belongs_to :target, class_name: :student
+  belongs_to :author, class_name: :Student
+  belongs_to :target, class_name: :Student
 
   validates :participation, presence: true,
     inclusion: { in: 1..5, message: "not in valid range" }
