@@ -1,39 +1,36 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Project:</strong>
-  <%= @feedback_item.project_id %>
+  <strong>Written By:</strong>
+  <%= link_to @feedback_item.author.name, student_path(@feedback_item.author) %>
 </p>
 
 <p>
-  <strong>Author:</strong>
-  <%= @feedback_item.author_id %>
+  <strong>Written About:</strong>
+  <%= link_to @feedback_item.target.name, student_path(@feedback_item.target) %>
 </p>
 
 <p>
-  <strong>Target:</strong>
-  <%= @feedback_item.target_id %>
+  <strong>For Project:</strong>
+  <%= link_to @feedback_item.project.name, project_path(@feedback_item.project) %>
 </p>
 
 <p>
-  <strong>Participation:</strong>
-  <%= @feedback_item.participation %>
+  <strong>Participation Score:</strong>
+  <%= @feedback_item.participation %> / 5
 </p>
 
 <p>
-  <strong>Quality:</strong>
-  <%= @feedback_item.quality %>
+  <strong>Quality Score:</strong>
+  <%= @feedback_item.quality %> / 5
 </p>
 
 <p>
-  <strong>Disagreements:</strong>
-  <%= @feedback_item.disagreements %>
+  <strong>Disagreements Score:</strong>
+  <%= @feedback_item.disagreements %> / 5
 </p>
 
 <p>
   <strong>Comments:</strong>
   <%= @feedback_item.comments %>
 </p>
-
-<%= link_to 'Edit', edit_feedback_item_path(@feedback_item) %> |
-<%= link_to 'Back', feedback_items_path %>
