@@ -42,5 +42,4 @@ module LoginHelper
       session[:current_inst] = nil
    end
  end
-
 end

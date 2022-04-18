@@ -15,14 +15,14 @@ Rails.application.routes.draw do
 
   # Student routes
   get 'students/login', to: 'students#login'
-  delete 'students/logout', to: 'students#logout'
+  post 'students/logout', to: 'students#logout'
   get 'students/email', to: 'students#email'
   post 'students/email', to: 'students#emailchecker'
   get 'students/signup', to: 'students#signup'
   get 'student/login/:id', to: 'students#login_process'
   post 'student/login/:id', to: 'students#check'
-  get 'student/:id/edit/:mode', to: 'students#edit'
-  get 'student/:id/:mode', to: 'students#show'
+  get 'student/:id/edit', to: 'students#edit'
+  get 'student/:id', to: 'students#show'
   resources :students
 
   # Group routes

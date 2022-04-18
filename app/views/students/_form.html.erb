@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <%if !student.signed && ins_mode == "student"%>
+  <%if !student.signed && is_student_logged_in? %>
     <input type=hidden name=student[signed] value=true>
   <%end%>
 
@@ -21,7 +21,7 @@
   </div>
 
   <div class="field">
-    <% if ins_mode == "instructor"%>
+    <% if is_inst_logged_in? %>
       <%= form.label :email %>
       <%= form.text_field :email %>
     <%else%>
@@ -31,7 +31,7 @@
   </div>
 
   <div class="field">
-    <%if ins_mode == "instructor"%>
+    <%if is_inst_logged_in?%>
       <input type=hidden name=student[password] value=DefaultPass3901+>
     <%else%>
       <%= form.label :password %>
@@ -40,7 +40,7 @@
   </div>
 
   <div class="actions">
-    <%if ins_mode == "instructor"%>
+    <%if is_inst_logged_in?%>
       <%= form.submit "Set up"%>
     <%elsif @mode == "signup"%>
       <%= form.submit "Sign up account"%>

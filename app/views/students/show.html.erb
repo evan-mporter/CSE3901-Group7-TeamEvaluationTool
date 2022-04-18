@@ -11,12 +11,10 @@
   <%= @student.email %>
 </p>
 
-<% if params[:mode] == "student"%>
+<% if is_student_logged_in?%>
   <p>Open project feedbacks:</p>
   
-<%
-=begin
-%>
+
   <ol>
   <%@student.groups.each do |g|%>
     <%g.projects.each do |p|%>
@@ -32,23 +30,22 @@
     <%end%>
   <%end%>
   </ol>
-<%
-=end
-%>
+
 
 <%else%>
   <p>Recent feedbacks:</p>
-<%
-=begin
-%>
+
   <%@student.feedback_items.each do |f|%>
     <li><%= link_to f.name, f %></li>
   <%end%>
-<%
-=end
-%>
+
 <%end%>
 
+<%= link_to 'Edit', edit_student_path(id: @student) %> |
 
-<%= link_to 'Edit', edit_student_path(id: @student, mode: params[:mode]) %> |
+<% if is_student_logged_in?%>
+<%= link_to 'Logout', students_logout_path, method: :post, data: { confirm: 'Do you want to logout?' } %>
+<%else%>
 <%= link_to 'Back', students_path %>
+<%end%>
+

@@ -14,8 +14,9 @@ class StudentsController < ApplicationController
   def check
     set_student
     if @student.authenticate(params[:password])
-      #self.log_in_student(@student)
-      redirect_to student_url(id: @student, mode: "student")
+      log_in_student(@student)
+      #TODO
+      redirect_to student_url(id: @student)
     else 
       flash.now[:alert] = "Wrong password!"+params[:password]
       render "login_process"
@@ -23,14 +24,15 @@ class StudentsController < ApplicationController
   end
 
   def logout
+    log_out
+    redirect_to login_url
   end
 
   def email
-    
   end
 
   def signup
-      redirect_to students_email_url
+    redirect_to students_email_url
   end
 
   def emailchecker
@@ -47,8 +49,9 @@ class StudentsController < ApplicationController
           redirect_to url_for(action: "login_process", id: @student)
       else
         #TODO a notice that you are not signed up, please sign up
-          @mode = "signup"
-          redirect_to edit_student_url(id: @student, mode: "student")
+          log_out
+          log_in_student @student
+          redirect_to edit_student_url(id: @student)
       end
     end
   end
@@ -56,35 +59,49 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    #if !is_inst_logged_in?
-    #  redirect_to student_url(@current_student)
-    #end
+    if !is_logged_in?
+      redirect_to login_url
+    end
+    if is_student_logged_in?
+      redirect_to student_url(current_student)
+    end
     @students = Student.all
     @students = @students.sort
   end
 
   # GET /students/1 or /students/1.json
   def show
-    #if !is_logged_in?
-    #  redirect_to students_email_url
-    #end
+    set_student
+    if !is_logged_in?
+      redirect_to login_url
+    end
+    if is_student_logged_in? && @student != Student.find(current_student)
+      redirect_to login_url
+    end
+    #TODO
   end
 
   # GET /students/new
   def new
+    if !is_inst_logged_in?
+      redirect_to instructors_email_url
+    end
     @student = Student.new
   end
 
   # GET /students/1/edit
   def edit
+    if !is_logged_in?
+      redirect_to login_url
+    end
+    if is_student_logged_in? && current_student != params[:id]
+      redirect_to login_url
+    end
     @mode = "editing"
     set_student
     if !@student.signed
       @mode = "signup"
     end
-    #if !helpers.is_logged_in?
-     #redirect_to students_email_url
-    #end
   end
 
   # POST /students or /students.json
@@ -117,7 +134,6 @@ class StudentsController < ApplicationController
   # DELETE /students/1 or /students/1.json
   def destroy
     @student.destroy
-
     respond_to do |format|
       format.html { redirect_to students_url, notice: "Student was successfully destroyed." }
       format.json { head :no_content }
