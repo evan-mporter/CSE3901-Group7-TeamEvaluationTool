@@ -94,7 +94,7 @@ class StudentsController < ApplicationController
     if !is_logged_in?
       redirect_to login_url
     end
-    if is_student_logged_in? && current_student != params[:id]
+    if is_student_logged_in? && @student != Student.find(current_student)
       redirect_to login_url
     end
     @mode = "editing"
