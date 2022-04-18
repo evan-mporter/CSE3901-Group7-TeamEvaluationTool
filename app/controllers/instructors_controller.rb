@@ -35,7 +35,7 @@ class InstructorsController < ApplicationController
 
   def logout
     log_out
-    redirect_to instructors_email_url, notice: "You have been successfully logged out."
+    redirect_to login_url, notice: "You have been successfully logged out."
   end
 
   def email
@@ -68,9 +68,6 @@ class InstructorsController < ApplicationController
   def edit
     @mode = "editing"
     set_instructor
-    if !@instructor.signed
-      @mode = "signup"
-    end
     if !is_logged_in?
       redirect_to instructors_email_url
      end

@@ -1,7 +1,7 @@
 <%= form_with(model: instructor) do |form| %>
   <% if instructor.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(instructor.errors.count, "error") %> prohibited this instructor from being saved:</h2>
+      <h2><%= pluralize(instructor.errors.count, "error") %> Prohibited this instructor from being saved:</h2>
 
       <ul>
         <% instructor.errors.each do |error| %>
@@ -10,10 +10,6 @@
       </ul>
     </div>
   <% end %>
-
-  <%if !instructor.signed && ins_mode == "instructor"%>
-    <input type=hidden name=instructor[signed] value=true>
-  <%end%>
 
   <div class="field">
     <%= form.label :name %>
@@ -31,7 +27,7 @@
   </div>
 
   <div class="actions">
-    <%if ins_mode == "instructor"%>
+    <%if is_inst_logged_in? && @mode != "editing" %>
       <%= form.submit "Set up"%>
     <%elsif @mode == "signup"%>
       <%= form.submit "Sign up account"%>
