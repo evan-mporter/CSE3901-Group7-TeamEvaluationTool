@@ -35,7 +35,7 @@ class InstructorsController < ApplicationController
   end
 
   def logout
-    log_out
+    log_out!
     redirect_to login_url
   end
 
@@ -112,7 +112,7 @@ class InstructorsController < ApplicationController
 
   # DELETE /instructors/1 or /instructors/1.json
   def destroy
-    log_out if inst_logged_in? @instructor
+    log_out! if inst_logged_in? @instructor
     
     @instructor.destroy
     respond_to do |format|

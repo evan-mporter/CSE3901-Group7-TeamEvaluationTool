@@ -48,7 +48,7 @@ module LoginHelper
   end
   
   # Logs out current instructor or student
-  def log_out
+  def log_out!
     session.delete :student_id
     session.delete :inst_id
     @current_student = nil

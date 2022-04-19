@@ -24,7 +24,7 @@ class StudentsController < ApplicationController
   end
 
   def logout
-    log_out
+    log_out!
     redirect_to login_url
   end
 
@@ -49,7 +49,7 @@ class StudentsController < ApplicationController
           redirect_to url_for(action: "login_process", id: @student)
       else
         #TODO a notice that you are not signed up, please sign up
-          log_out
+          log_out!
           log_in_student @student
           redirect_to edit_student_url(id: @student)
       end
@@ -146,7 +146,7 @@ class StudentsController < ApplicationController
 
   # DELETE /students/1 or /students/1.json
   def destroy
-    log_out if student_logged_in? @student
+    log_out! if student_logged_in? @student
   
     @student.destroy
     respond_to do |format|
