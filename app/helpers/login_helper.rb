@@ -43,7 +43,7 @@ module LoginHelper
   # Shared
 
   # Returns true if anyone is logged in, false otherwise
-  def is_logged_in?
+  def logged_in?
     inst_logged_in? || student_logged_in?
   end
   

@@ -49,7 +49,7 @@ class InstructorsController < ApplicationController
 
   # GET /instructors or /instructors.json
   def index
-    if not is_logged_in?
+    if not logged_in?
       redirect_to login_url
       return
     end
@@ -78,7 +78,7 @@ class InstructorsController < ApplicationController
   def edit
     @mode = "editing"
     set_instructor # TODO: Doesn't the before_action handle this?
-    if not is_logged_in? # TODO: We don't want a student to be able to edit an instructor account
+    if not logged_in? # TODO: We don't want a student to be able to edit an instructor account
       redirect_to instructors_email_url
      end
   end

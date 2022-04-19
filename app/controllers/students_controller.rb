@@ -59,7 +59,7 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    if not is_logged_in?
+    if not logged_in?
       redirect_to login_url
       return
     end
@@ -76,7 +76,7 @@ class StudentsController < ApplicationController
   # GET /students/1 or /students/1.json
   def show
     set_student # TODO: set_student gets called by before_action
-    if !is_logged_in?
+    if not logged_in?
       redirect_to login_url
       return
     end
@@ -101,7 +101,7 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
-    if not is_logged_in?
+    if not logged_in?
       redirect_to login_url
       return
     end
