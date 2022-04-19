@@ -17,10 +17,13 @@ class ApplicationController < ActionController::Base
     # Nobody is logged in. Redirect to the login page
     else
       redirect_to login_url
+      
     end
   end
 
   def login
+    # Redirect to landing page if already logged in
+    return redirect_to root_path if logged_in?
   end
 
   def full_reset

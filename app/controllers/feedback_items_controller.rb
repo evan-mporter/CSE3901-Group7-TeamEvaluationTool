@@ -2,7 +2,7 @@ class FeedbackItemsController < ApplicationController
 
   # GET /feedback_items/1
   def show
-    # Only allow instructor to view
+    # Only allow instructors to view feedback items
     return redirect_to login_path unless inst_logged_in?
     
     @feedback_item = FeedbackItem.find(params[:id])
@@ -10,7 +10,7 @@ class FeedbackItemsController < ApplicationController
 
   # POST /feedback_items
   def update
-    # Only allow a logged-in student to post
+    # Only allow a logged-in student to post feedback items
     return redirect_to login_path unless student_logged_in?
     
     # Handle form parameters
