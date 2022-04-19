@@ -19,7 +19,7 @@ class FeedbackItemsController < ApplicationController
     form_params[:author_id] = current_student.id
 
     # Make sure we're not submitting to a closed project
-    unless Project.find_by(id: form_params[:project_id]&.is_open
+    unless Project.find_by(id: form_params[:project_id])&.is_open
       return bail "Project is closed"
     end
 
