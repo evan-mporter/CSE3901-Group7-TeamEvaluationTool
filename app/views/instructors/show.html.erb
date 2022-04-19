@@ -11,17 +11,19 @@
     <%= @instructor.email %>
   </p>
 
-  <p>Students</p>
+  <p>Click <%= link_to "here", students_path %> to manage students. </p>
 
-  <p>Groups</p>
+  <p>Click <%= link_to "here", groups_path %> to manage groups. </p>
 
-  <p>Projects</p>
+  <p>Click <%= link_to "here", projects_path %> to manage projects. </p>
+
+
 
   <%= link_to 'Edit', edit_instructor_path(@instructor) %> |
   <%= link_to 'Back', :back %> |
   <%= link_to 'Add Instructor Account', new_instructor_path %> |
-  <%= link_to 'Logout', instructors_logout_url %>
-<% else %>
+  <%= link_to 'Logout', instructors_logout_path, method: :post, data: { confirm: 'Do you want to logout?' } %>
+<%else%>
   <h1> You are not authorized to view this page. </h1>
   <%= link_to 'Back', :back%>
-<% end %>
+<%end%>

@@ -13,7 +13,7 @@ class InstructorsController < ApplicationController
     set_instructor
     if @instructor.authenticate(params[:password])
       log_in_instructor(@instructor)
-      redirect_to instructor_url(id: @instructor, mode: "instructor")
+      redirect_to instructor_url(id: @instructor)
     else 
       flash.now[:alert] = "Wrong password!"+params[:password]
       render "login_process"
@@ -35,7 +35,7 @@ class InstructorsController < ApplicationController
 
   def logout
     log_out
-    redirect_to login_url, notice: "You have been successfully logged out."
+    redirect_to login_url
   end
 
   def email
@@ -48,14 +48,18 @@ class InstructorsController < ApplicationController
 
   # GET /instructors or /instructors.json
   def index
+    if !is_logged_in?
+      redirect_to login_url
+    end
     @instructors = Instructor.all
     @instructors = @instructors.sort
   end
 
   # GET /instructors/1 or /instructors/1.json
   def show
-    if !is_logged_in?
-      redirect_to instructors_email_url
+    set_instructor
+    if is_inst_logged_in? && @instructor != Instructor.find(current_inst)
+      redirect_to login_url
     end
   end
 
