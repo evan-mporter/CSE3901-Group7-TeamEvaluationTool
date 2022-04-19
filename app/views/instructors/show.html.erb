@@ -21,6 +21,7 @@
 
   <%= link_to 'Edit', edit_instructor_path(@instructor) %> |
   <%= link_to 'Back', :back %> |
+  <%= link_to 'View Instructor Accounts', instructors_path %> |
   <%= link_to 'Add Instructor Account', new_instructor_path %> |
   <%= link_to 'Logout', instructors_logout_path, method: :post, data: { confirm: 'Do you want to logout?' } %>
 <%else%>
