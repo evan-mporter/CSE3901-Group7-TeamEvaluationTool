@@ -18,6 +18,11 @@ class FeedbackItemsController < ApplicationController
       :target_id, :participation, :quality, :disagreements, :comments)
     form_params[:author_id] = current_student.id
 
+    # Make sure we're not submitting to a closed project
+    unless Project.find_by(id: form_params[:project_id]&.is_open
+      return bail "Project is closed"
+    end
+
     # Try to find an existing FeedbackItem, if possible
     feedback_item = FeedbackItem.where(author_id: form_params[:author_id],
                                        target_id: form_params[:target_id],
@@ -29,12 +34,18 @@ class FeedbackItemsController < ApplicationController
       unless params[:continue_url].nil?
         redirect_to params[:continue_url]
       else
-        render html: "Feedback Submitted"
+        bail "Form submitted successfully, but don't know where to redirect."
       end
     else
-      flash[:danger] = "Failed to submit form: " + (feedback_item.errors.full_messages.join ", ")
-      redirect_back_or_to root_path # Go back to wherever the form was submitted
+      bail "Failed to submit form: " + (feedback_item.errors.full_messages.join ", ")
     end
   end
+
+  private
+    # Redirect to the referrer, with an error message
+    def bail(msg)
+      flash[:danger] = msg unless msg.nil?
+      redirect_back_or_to root_path # Go back to wherever the form was submitted
+    end
 
 end

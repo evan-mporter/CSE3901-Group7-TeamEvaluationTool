@@ -43,5 +43,10 @@ class EvaluationsController < ApplicationController
       unless @group.students.include? current_student
         return redirect_to student_path(current_student)
       end
+      
+      # If the project is closed, block an evaluation
+      unless @project.is_open
+        render 'project_closed'
+      end
     end
 end
