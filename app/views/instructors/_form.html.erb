@@ -27,7 +27,7 @@
   </div>
 
   <div class="actions">
-    <%if is_inst_logged_in? && @mode != "editing" %>
+    <%if inst_logged_in? && @mode != "editing" %>
       <%= form.submit "Set up"%>
     <%elsif @mode == "signup"%>
       <%= form.submit "Sign up account"%>

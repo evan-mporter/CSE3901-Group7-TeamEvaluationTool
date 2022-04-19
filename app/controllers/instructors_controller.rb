@@ -6,12 +6,13 @@ class InstructorsController < ApplicationController
   end
 
   def login_process
-    set_instructor
+    set_instructor # TODO: cant you put this into before_action?
   end
 
   def check
-    set_instructor
+    set_instructor # TODO: cant you put this into before_action?
     if @instructor.authenticate(params[:password])
+      # TODO: Avoid logging in student & instructor at the same time
       log_in_instructor(@instructor)
       redirect_to instructor_url(id: @instructor)
     else 
@@ -48,19 +49,24 @@ class InstructorsController < ApplicationController
 
   # GET /instructors or /instructors.json
   def index
-    if !is_logged_in?
+    if not is_logged_in?
       redirect_to login_url
+      return
     end
+    
+    # TODO: Did we want students to be able to view the list of instructors? 
+    
     @instructors = Instructor.all
     @instructors = @instructors.sort
   end
 
   # GET /instructors/1 or /instructors/1.json
   def show
-    set_instructor
-    if is_inst_logged_in? && @instructor != Instructor.find(current_inst)
+    set_instructor # TODO: Doesn't the before_action handle this?
+    if not inst_logged_in? @instructor
       redirect_to login_url
     end
+    
   end
 
   # GET /instructors/new
@@ -71,8 +77,8 @@ class InstructorsController < ApplicationController
   # GET /instructors/1/edit
   def edit
     @mode = "editing"
-    set_instructor
-    if !is_logged_in?
+    set_instructor # TODO: Doesn't the before_action handle this?
+    if not is_logged_in? # TODO: We don't want a student to be able to edit an instructor account
       redirect_to instructors_email_url
      end
   end
@@ -106,7 +112,8 @@ class InstructorsController < ApplicationController
 
   # DELETE /instructors/1 or /instructors/1.json
   def destroy
-    session_check(@instructor)
+    log_out if inst_logged_in? @instructor
+    
     @instructor.destroy
     respond_to do |format|
       format.html { redirect_to instructors_url, notice: "Instructor was successfully destroyed." }

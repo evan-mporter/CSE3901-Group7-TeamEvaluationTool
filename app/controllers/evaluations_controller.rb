@@ -2,11 +2,12 @@ class EvaluationsController < ApplicationController
   before_action :set_props
 
   def landing
+    return redirect_to
   end
 
   def single
     # Try to look up an existing feedback item
-    @feedback_item = FeedbackItem.where(author_id: 1, # TODO: current_student.id,
+    @feedback_item = FeedbackItem.where(author_id: current_student.id,
                                         target_id: @target.id,
                                         project_id: @project.id)
                                         .first

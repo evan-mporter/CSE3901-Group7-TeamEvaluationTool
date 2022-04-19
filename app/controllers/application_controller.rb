@@ -7,11 +7,11 @@ class ApplicationController < ActionController::Base
       redirect_to new_instructor_url
 
     # An instructor is logged in. Redirect to their homepage
-    elsif is_inst_logged_in?
+    elsif inst_logged_in?
       redirect_to instructor_url(current_inst)
 
     # A student is logged in. Redirect to their homepage
-    elsif is_student_logged_in?
+    elsif student_logged_in?
       redirect_to student_url(current_student)
 
     # Nobody is logged in. Redirect to the login page
