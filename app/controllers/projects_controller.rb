@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.all.sort{|s| s.created_at}
   end
 
   # GET /projects/1 or /projects/1.json
@@ -50,6 +50,7 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
+    Group.all.each{|g| @project.feedback_for(g).destroy}
     @project.destroy
 
     respond_to do |format|
