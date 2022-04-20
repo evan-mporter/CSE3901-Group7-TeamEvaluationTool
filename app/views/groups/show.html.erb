@@ -7,12 +7,7 @@
 
 <p>
   <strong>Students:</strong>
-  <%= @group.students %>
-</p>
-
-<p>
-  <strong>Feedback items:</strong>
-  <%= @group.feedback_items %>
+  <%= @group.students.map{|s| s.name}.join "," %>
 </p>
 
 <%= link_to 'Edit', edit_group_path(@group) %> |

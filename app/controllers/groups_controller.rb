@@ -1,5 +1,6 @@
 class GroupsController < ApplicationController
   before_action :set_group, only: %i[ show edit update destroy ]
+  before_action :inst_verify
 
   # GET /groups or /groups.json
   def index
@@ -65,6 +66,10 @@ class GroupsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def group_params
-      params.require(:group).permit(:name, :students, :feedback_items)
+      params.require(:group).permit(:name, student_ids: [])
+    end
+
+    def inst_verify
+      return redirect_to root_path unless inst_logged_in?
     end
 end

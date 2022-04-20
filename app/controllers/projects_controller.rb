@@ -1,5 +1,6 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
+  before_action :inst_verify
 
   # GET /projects or /projects.json
   def index
@@ -66,5 +67,9 @@ class ProjectsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def project_params
       params.require(:project).permit(:name, :is_open)
+    end
+
+    def inst_verify
+      return redirect_to root_path unless inst_logged_in?
     end
 end
