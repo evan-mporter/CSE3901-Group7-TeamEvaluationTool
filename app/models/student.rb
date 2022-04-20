@@ -8,7 +8,7 @@ class Student < ApplicationRecord
     VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W]).{8,}\z/
     validates :password, presence: true, length: {minimum: 8}, format: { with: VALID_PASSWORD_REGEX, message: "Password must contains at least a lowercase letter, a uppercase, a digit, a special char and 8+ chars" }
 
-    def feedback_for(proj)
-        self.feedback_items.where(project: proj).first
+    def feedback_for(proj, group)
+        self.feedback_items.where(project: proj).filter{|f| group.students.include? f.author}
     end
 end
