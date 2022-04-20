@@ -8,11 +8,11 @@ class StudentsController < ApplicationController
   end
 
   def login_process
-    set_student
+    set_student # TODO: Can't you add this to the before action
   end
 
   def check
-    set_student
+    set_student # TODO: Can't you add this to the before action
     if @student.authenticate(params[:password])
       log_in_student(@student)
       #TODO
@@ -24,7 +24,7 @@ class StudentsController < ApplicationController
   end
 
   def logout
-    log_out
+    log_out!
     redirect_to login_url
   end
 
@@ -49,7 +49,7 @@ class StudentsController < ApplicationController
           redirect_to url_for(action: "login_process", id: @student)
       else
         #TODO a notice that you are not signed up, please sign up
-          log_out
+          log_out!
           log_in_student @student
           redirect_to edit_student_url(id: @student)
       end
@@ -59,46 +59,54 @@ class StudentsController < ApplicationController
 
   # GET /students or /students.json
   def index
-    if !is_logged_in?
+    if not logged_in?
       redirect_to login_url
+      return
     end
-    if is_student_logged_in?
+    
+    if student_logged_in?
       redirect_to student_url(current_student)
+      return
     end
+    
     @students = Student.all
     @students = @students.sort
   end
 
   # GET /students/1 or /students/1.json
   def show
-    set_student
-    if !is_logged_in?
+    set_student # TODO: set_student gets called by before_action
+    if not inst_logged_in? and not student_logged_in? @student
       redirect_to login_url
+      return
     end
-    if is_student_logged_in? && @student != Student.find(current_student)
-      redirect_to login_url
-    end
+    
     #TODO
   end
 
   # GET /students/new
   def new
-    if !is_inst_logged_in?
+    if not inst_logged_in?
       redirect_to instructors_email_url
+      return
     end
+    
     @student = Student.new
   end
 
   # GET /students/1/edit
   def edit
-    if !is_logged_in?
+    if not logged_in?
       redirect_to login_url
+      return
     end
-    if is_student_logged_in? && @student != Student.find(current_student)
+    if not student_logged_in? @student
       redirect_to login_url
+      return
     end
+    
     @mode = "editing"
-    set_student
+    set_student # TODO: set_student gets called by before_action
     if !@student.signed
       @mode = "signup"
     end
@@ -133,6 +141,8 @@ class StudentsController < ApplicationController
 
   # DELETE /students/1 or /students/1.json
   def destroy
+    log_out! if student_logged_in? @student
+  
     @student.destroy
     respond_to do |format|
       format.html { redirect_to students_url, notice: "Student was successfully destroyed." }

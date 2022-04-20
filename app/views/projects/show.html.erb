@@ -10,5 +10,31 @@
   <%= @project.is_open %>
 </p>
 
+<p>
+<% Group.all.each do |g| %>
+  <%= g.name %>
+  <table>
+    <tr>
+      <th>Student Name</th>
+      <th>Score</th>
+      <th>Details</th>
+    </tr>
+    <% g.students.each do |s|%>
+      <tr>
+        <td><%= s.name%></td>
+        <% fbItem = s.feedback_for(@project)%>
+        <% if fbItem.nil? %>
+          <td>?/15</td>
+          <td>N/A</td>
+        <% else%>
+          <td><%= fbItem.quality + fbItem.participation + fbItem.disagreements%>/15</td>
+          <td><%= link_to "View Breakdown", feedback_item_path(fbItem)%></td>
+        <%end%>
+      </tr>
+    <%end%>
+  </table>
+<%end%>
+</p>
+
 <%= link_to 'Edit', edit_project_path(@project) %> |
 <%= link_to 'Back', projects_path %>

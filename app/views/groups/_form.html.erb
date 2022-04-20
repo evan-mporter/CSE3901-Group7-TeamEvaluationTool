@@ -18,12 +18,9 @@
 
   <div class="field">
     <%= form.label :students %>
-    <%= form.text_field :students %>
-  </div>
-
-  <div class="field">
-    <%= form.label :feedback_items %>
-    <%= form.text_field :feedback_items %>
+    <%= form.collection_check_boxes :student_ids, Student.all, :id, :name do |b|%>
+      <% b.label {b.check_box + " " + b.text} %>
+    <%end%>
   </div>
 
   <div class="actions">

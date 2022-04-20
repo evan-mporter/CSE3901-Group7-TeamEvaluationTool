@@ -11,41 +11,51 @@
   <%= @student.email %>
 </p>
 
-<% if is_student_logged_in?%>
-  <p>Open project feedbacks:</p>
-  
+<hr>
 
-  <ol>
-  <%@student.groups.each do |g|%>
-    <%g.projects.each do |p|%>
-      <%find = false%>
-      <%p.feedback_items.each do |f|%>
-        <%if f.author == @student.name%>
-          <%find = true%>
-        <%end%>
-      <%end%>
-      <%if !find%>
-        <li><%= p.name%><%= link_to "complete this feedback", p%></li>
+<%if student_logged_in? @student %>
+  <strong>Open Evaluations:</strong>
+  <table>
+    <tr>
+      <th>Project</th>
+      <th>Completed</th>
+      <th>Link</th>
+    </tr>
+     
+    <% @student.groups.each do |g| %>
+      <% Project.all.each do |p| %>
+        <% next unless p.is_open %>
+        <% completed = !g.feedback_for(p).where(author: @student).empty? %>
+        <tr>
+          <td><%= p.name %></td>
+          <td><%= completed ? "Yes" : "No" %></td>
+          <td><%= link_to (completed ? "Edit" : "Complete"), begin_eval_path(group: g, project: p) %></td>
+        </tr>
       <%end%>
     <%end%>
-  <%end%>
-  </ol>
-
+  </table>
 
 <%else%>
-  <p>Recent feedbacks:</p>
 
-  <%@student.feedback_items.each do |f|%>
-    <li><%= link_to f.name, f %></li>
-  <%end%>
+  <strong>Recent Evaluations:</strong>
+  <ul>
+    <% if @student.feedback_items.empty? %>
+      <li>Nobody has evaluated <%= @student.name %></li>
+    <% end %>
+    <% @student.feedback_items.each do |f| %>
+      <li><%= link_to f.project.name, f %></li>
+    <% end %>
+  </ul>
 
 <%end%>
 
+<hr>
+
 <%= link_to 'Edit', edit_student_path(id: @student) %> |
 
-<% if is_student_logged_in?%>
-<%= link_to 'Logout', students_logout_path, method: :post, data: { confirm: 'Do you want to logout?' } %>
+<% if student_logged_in? @student %>
+  <%= link_to 'Logout', students_logout_path, method: :post, data: { confirm: 'Do you want to logout?' } %>
 <%else%>
-<%= link_to 'Back', students_path %>
+  <%= link_to 'Back', students_path %>
 <%end%>
 

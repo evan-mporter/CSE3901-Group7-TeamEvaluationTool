@@ -33,7 +33,7 @@ Rails.application.routes.draw do
 
   # FeedbackItem routes
   post '/feedback_items', to: 'feedback_items#update'
-  get '/feedback_items/:id', to: 'feedback_items#show'
+  get '/feedback_items/:id', to: 'feedback_items#show', as: :feedback_item
 
   # Evaluations routes
   get '/evaluations/:group/:project', to: 'evaluations#landing', as: :begin_eval

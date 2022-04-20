@@ -1,9 +1,10 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[ show edit update destroy ]
+  before_action :inst_verify
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.all
+    @projects = Project.all.sort{|s| s.created_at}
   end
 
   # GET /projects/1 or /projects/1.json
@@ -49,6 +50,7 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
+    Group.all.each{|g| @project.feedback_for(g).destroy}
     @project.destroy
 
     respond_to do |format|
@@ -66,5 +68,9 @@ class ProjectsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def project_params
       params.require(:project).permit(:name, :is_open)
+    end
+
+    def inst_verify
+      return redirect_to root_path unless inst_logged_in?
     end
 end
