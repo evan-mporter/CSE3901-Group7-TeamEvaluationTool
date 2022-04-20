@@ -1,22 +1,22 @@
 class InstructorsController < ApplicationController
-  before_action :set_instructor, only: %i[ show edit update destroy ]
+  before_action :set_instructor, only: %i[ show edit update destroy login_process check]
+  before_action :inst_verify, only: %i[ index show edit ]
 
   def login
-    redirect_to instructors_email_url
+    return redirect_to instructors_email_url
   end
 
   def login_process
-    set_instructor # TODO: cant you put this into before_action?
+    
   end
 
   def check
-    set_instructor # TODO: cant you put this into before_action?
     if @instructor.authenticate(params[:password])
       # TODO: Avoid logging in student & instructor at the same time
       log_in_instructor(@instructor)
-      redirect_to instructor_url(id: @instructor)
+      return redirect_to instructor_url(id: @instructor)
     else 
-      flash.now[:alert] = "Wrong password!"+params[:password]
+      flash.now[:alert] = "Wrong password! " + params[:password]
       render "login_process"
     end
   end
@@ -26,17 +26,17 @@ class InstructorsController < ApplicationController
     @instructor = Instructor.find_by(email: @instructor_email)
     if !@instructor
       respond_to do |format|
-        format.html { redirect_to instructors_email_url, notice: "This email is not registered. Use another one." }
+        format.html { return redirect_to instructors_email_url, notice: "This email is not registered. Use another one." }
         format.json { head :no_content }
       end
     else
-      redirect_to url_for(action: "login_process", id: @instructor)
+      return redirect_to url_for(action: "login_process", id: @instructor)
     end
   end
 
   def logout
     log_out!
-    redirect_to login_url
+    return redirect_to login_url
   end
 
   def email
@@ -49,11 +49,6 @@ class InstructorsController < ApplicationController
 
   # GET /instructors or /instructors.json
   def index
-    if not logged_in?
-      redirect_to login_url
-      return
-    end
-    
     # TODO: Did we want students to be able to view the list of instructors? 
     
     @instructors = Instructor.all
@@ -62,24 +57,18 @@ class InstructorsController < ApplicationController
 
   # GET /instructors/1 or /instructors/1.json
   def show
-    set_instructor # TODO: Doesn't the before_action handle this?
-    if not inst_logged_in?
-      redirect_to login_url
-    end
+
   end
 
   # GET /instructors/new
   def new
+    return redirect_to root_path unless Instructor.count.zero? || inst_logged_in?
     @instructor = Instructor.new
   end
 
   # GET /instructors/1/edit
   def edit
     @mode = "editing"
-    set_instructor # TODO: Doesn't the before_action handle this?
-    if not logged_in? # TODO: We don't want a student to be able to edit an instructor account
-      redirect_to instructors_email_url
-     end
   end
 
   # POST /instructors or /instructors.json
@@ -129,5 +118,9 @@ class InstructorsController < ApplicationController
     # Only allow a list of trusted parameters through.
     def instructor_params
       params.require(:instructor).permit(:name, :email, :password)
+    end
+
+    def inst_verify
+      return redirect_to root_path unless inst_logged_in?
     end
 end
