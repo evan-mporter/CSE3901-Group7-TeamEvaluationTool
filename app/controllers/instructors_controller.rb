@@ -63,10 +63,9 @@ class InstructorsController < ApplicationController
   # GET /instructors/1 or /instructors/1.json
   def show
     set_instructor # TODO: Doesn't the before_action handle this?
-    if not inst_logged_in? @instructor
+    if not inst_logged_in?
       redirect_to login_url
     end
-    
   end
 
   # GET /instructors/new
