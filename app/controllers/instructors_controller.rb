@@ -68,6 +68,7 @@ class InstructorsController < ApplicationController
 
   # GET /instructors/1/edit
   def edit
+    return redirect_to root_path unless inst_logged_in? @instructor
     @mode = "editing"
   end
 

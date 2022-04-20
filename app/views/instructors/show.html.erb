@@ -10,17 +10,22 @@
   <%= @instructor.email %>
 </p>
 
-<p>Click <%= link_to "here", students_path %> to manage students. </p>
-
-<p>Click <%= link_to "here", groups_path %> to manage groups. </p>
-
-<p>Click <%= link_to "here", projects_path %> to manage projects. </p>
-
-<p>Click <%= link_to "here", instructors_path %> to manage instructor accounts. </p>
-
-<%= link_to 'Edit', edit_instructor_path(@instructor) %> |
 <% if inst_logged_in? @instructor %>
-  <%= link_to 'Logout', instructors_logout_path, method: :post, data: { confirm: 'Do you want to logout?' } %>
+
+  <p>Click <%= link_to "here", students_path %> to manage students. </p>
+
+  <p>Click <%= link_to "here", groups_path %> to manage groups. </p>
+
+  <p>Click <%= link_to "here", projects_path %> to manage projects. </p>
+
+  <p>Click <%= link_to "here", instructors_path %> to manage instructor accounts. </p>
+
+<% end %>
+
+<% if inst_logged_in? @instructor %>
+  <%= link_to 'Edit', edit_instructor_path(@instructor) %> |
+  <%= link_to 'Logout', instructors_logout_path, method: :post, data: { confirm: 'Do you want to logout?' } %> |
 <% else %>
-  <%= link_to 'Back', :back %>
+  <%= link_to 'Delete', @instructor, method: :delete, data: {confirm: 'Do you really want to delete this instructor?' }%> |
+  <%= link_to 'Back', instructors_path %>
 <% end %>

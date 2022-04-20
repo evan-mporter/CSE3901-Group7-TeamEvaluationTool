@@ -17,8 +17,10 @@
         <td><%= instructor.name %></td>
         <td><%= instructor.email %></td>
         <td><%= link_to 'Show', instructor %></td>
+        <%if inst_logged_in? instructor%>
         <td><%= link_to 'Edit', edit_instructor_path(instructor) %></td>
-        <td><%= link_to 'Destroy', instructor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+        <td><%= link_to 'Delete', instructor, method: :delete, data: { confirm: 'Do you really want to delete this instructor?' } %></td>
       </tr>
     <% end %>
   </tbody>
