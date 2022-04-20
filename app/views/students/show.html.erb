@@ -43,7 +43,7 @@
       <li>Nobody has evaluated <%= @student.name %></li>
     <% end %>
     <% @student.feedback_items.each do |f| %>
-      <li><%= link_to f.project.name, f %></li>
+      <li><%= link_to "#{f.project.name} (by #{f.author.name})", f %></li>
     <% end %>
   </ul>
 
