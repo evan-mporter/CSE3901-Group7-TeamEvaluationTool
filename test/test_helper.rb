@@ -10,4 +10,21 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def is_instructor_logged_in?
+    !session[:inst].nil?
+  end
+
+  def log_in_instructor instructor
+    session[:inst] = instructor.id
+  end
+
+  def is_student_logged_in?
+    !session[:inst].nil?
+  end
+
+  def log_in_student student
+    session[:student] = student.id
+  end
+  
 end
