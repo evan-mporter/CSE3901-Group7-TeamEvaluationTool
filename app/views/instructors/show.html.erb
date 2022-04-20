@@ -24,7 +24,7 @@
 
 <% if inst_logged_in? @instructor %>
   <%= link_to 'Edit', edit_instructor_path(@instructor) %> |
-  <%= link_to 'Logout', instructors_logout_path, method: :post, data: { confirm: 'Do you want to logout?' } %> |
+  <%= link_to 'Logout', instructors_logout_path, method: :post, data: { confirm: 'Do you want to logout?' } %>
 <% else %>
   <%= link_to 'Delete', @instructor, method: :delete, data: {confirm: 'Do you really want to delete this instructor?' }%> |
   <%= link_to 'Back', instructors_path %>
