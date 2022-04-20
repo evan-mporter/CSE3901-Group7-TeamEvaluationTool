@@ -76,12 +76,7 @@ class StudentsController < ApplicationController
   # GET /students/1 or /students/1.json
   def show
     set_student # TODO: set_student gets called by before_action
-    if not logged_in?
-      redirect_to login_url
-      return
-    end
-    
-    if not student_logged_in? @student
+    if not inst_logged_in? and not student_logged_in? @student
       redirect_to login_url
       return
     end
