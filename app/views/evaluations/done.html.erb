@@ -3,5 +3,7 @@
 <p>You've finished evaluating <%= @group.name %> for <%= @project.name %>.
 You may still go back and edit your responses, or leave this page.</p>
 
-<%= link_to "Back", back_btn_url %>
-<%= link_to "Finish", students_path %>
+<div>
+  <%= link_to "Back", back_btn_url, class: "btn btn-secondary" %>
+  <%= link_to "Finish", students_path, class: "btn btn-primary" %>
+</div>

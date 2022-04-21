@@ -11,5 +11,7 @@ Only the instructors of this course will be able to see your feedback.</p>
 <p>Your feedback will be submitted per-person, each time you hit the "Continue" button.
 You can go back and edit your feedback after, if you wish.</p>
 
-<%= link_to "Back", students_path %>
-<%= link_to "Begin", next_btn_url %>
+<div>
+  <%= link_to "Back", students_path, class: "btn btn-secondary" %>
+  <%= link_to "Begin", next_btn_url, class: "btn btn-primary" %>
+</div>
