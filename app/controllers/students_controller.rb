@@ -1,24 +1,20 @@
 class StudentsController < ApplicationController
-  
-
-  before_action :set_student, only: %i[ show edit update destroy ]
+  before_action :set_student, only: %i[ show edit update destroy login_process check ]
 
   def login
     redirect_to students_email_url
   end
 
   def login_process
-    set_student # TODO: Can't you add this to the before action
   end
 
   def check
-    set_student # TODO: Can't you add this to the before action
     if @student.authenticate(params[:password])
       log_in_student(@student)
       #TODO
       redirect_to student_url(id: @student)
     else 
-      flash.now[:alert] = "Wrong password!"+params[:password]
+      flash.now[:alert] = "Wrong password!"
       render "login_process"
     end
   end
@@ -48,8 +44,6 @@ class StudentsController < ApplicationController
       if @student.signed
           redirect_to url_for(action: "login_process", id: @student)
       else
-        #TODO a notice that you are not signed up, please sign up
-          log_out!
           log_in_student @student
           redirect_to edit_student_url(id: @student)
       end
@@ -75,7 +69,6 @@ class StudentsController < ApplicationController
 
   # GET /students/1 or /students/1.json
   def show
-    set_student # TODO: set_student gets called by before_action
     if not inst_logged_in? and not student_logged_in? @student
       redirect_to login_url
       return
@@ -102,7 +95,6 @@ class StudentsController < ApplicationController
     end
     
     @mode = "editing"
-    set_student # TODO: set_student gets called by before_action
     if !@student.signed
       @mode = "signup"
     end
@@ -114,7 +106,7 @@ class StudentsController < ApplicationController
     @student.email = @student.email.downcase
     respond_to do |format|
       if @student.save
-        format.html { redirect_to student_url(id: @student, mode: "instructor"), notice: "Student was successfully created." }
+        format.html { redirect_to student_url(id: @student), notice: "Student was successfully created." }
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new, status: :unprocessable_entity }

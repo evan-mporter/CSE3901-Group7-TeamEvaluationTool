@@ -50,7 +50,7 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1 or /projects/1.json
   def destroy
-    Group.all.each{|g| @project.feedback_for(g).destroy}
+    Group.all.each { |g| @project.feedback_for(g).destroy_all }
     @project.destroy
 
     respond_to do |format|

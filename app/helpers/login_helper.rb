@@ -11,6 +11,7 @@ module LoginHelper
 
   # Make the provided Student object logged in
   def log_in_student student
+    log_out!
     session[:student_id] = student.id
   end
   
@@ -31,6 +32,7 @@ module LoginHelper
 
   # Make the provided Instructor object logged in
   def log_in_instructor instructor
+    log_out!
     session[:inst_id] = instructor.id
   end
   

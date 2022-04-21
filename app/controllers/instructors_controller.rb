@@ -16,7 +16,7 @@ class InstructorsController < ApplicationController
       log_in_instructor(@instructor)
       return redirect_to instructor_url(id: @instructor)
     else 
-      flash.now[:alert] = "Wrong password! " + params[:password]
+      flash.now[:alert] = "Wrong password!"
       render "login_process"
     end
   end
