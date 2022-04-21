@@ -16,7 +16,7 @@ class InstructorsController < ApplicationController
       log_in_instructor(@instructor)
       return redirect_to instructor_url(id: @instructor)
     else 
-      flash.now[:alert] = "Wrong password!"
+      flash.now[:danger] = "Wrong password!"
       render "login_process"
     end
   end
@@ -25,10 +25,8 @@ class InstructorsController < ApplicationController
     @instructor_email = params[:email].downcase
     @instructor = Instructor.find_by(email: @instructor_email)
     if !@instructor
-      respond_to do |format|
-        format.html { return redirect_to instructors_email_url, notice: "This email is not registered. Use another one." }
-        format.json { head :no_content }
-      end
+        flash.now[:danger] = "This email is not registered. Use another one."
+        return redirect_to instructors_email_url
     else
       return redirect_to url_for(action: "login_process", id: @instructor)
     end
@@ -76,26 +74,21 @@ class InstructorsController < ApplicationController
   def create
     @instructor = Instructor.new(instructor_params)
 
-    respond_to do |format|
-      if @instructor.save
-        format.html { redirect_to instructor_url(@instructor), notice: "Instructor was successfully created." }
-        format.json { render :show, status: :created, location: @instructor }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @instructor.errors, status: :unprocessable_entity }
-      end
+    if @instructor.save
+      flash[:success] = "Instructor was successfully created."
+      redirect_to instructor_url(@instructor)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /instructors/1 or /instructors/1.json
   def update
-    respond_to do |format|
-      if @instructor.update(instructor_params)
-        format.html { redirect_to instructor_url(@instructor), notice: "All set!" }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @instructor.errors, status: :unprocessable_entity }
-      end
+    if @instructor.update(instructor_params)
+      flash[:success] = "All set!"
+      redirect_to instructor_url(@instructor)
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -104,10 +97,8 @@ class InstructorsController < ApplicationController
     log_out! if inst_logged_in? @instructor
     
     @instructor.destroy
-    respond_to do |format|
-      format.html { redirect_to instructors_url, notice: "Instructor was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    flash[:success] = "Instructor was successfully destroyed."
+    redirect_to instructors_url
   end
 
   private

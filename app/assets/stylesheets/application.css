@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+nav {
+	background: #1A1A1A;
+}

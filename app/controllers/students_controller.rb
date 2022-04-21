@@ -14,7 +14,7 @@ class StudentsController < ApplicationController
       #TODO
       redirect_to student_url(id: @student)
     else 
-      flash.now[:alert] = "Wrong password!"
+      flash.now[:danger] = "Wrong password!"
       render "login_process"
     end
   end
@@ -35,11 +35,8 @@ class StudentsController < ApplicationController
     @student_email = params[:email].downcase
     @student = Student.find_by(email: @student_email)
     if !@student
-      #TODO a notice that your email is not valid
-      respond_to do |format|
-        format.html { redirect_to students_email_url, notice: "This email is not registered. Use another one." }
-        format.json { head :no_content }
-      end
+        flash[:danger] = "This email is not registered. Use another one."
+        redirect_to students_email_url
     else
       if @student.signed
           redirect_to url_for(action: "login_process", id: @student)
@@ -104,26 +101,21 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
     @student.email = @student.email.downcase
-    respond_to do |format|
-      if @student.save
-        format.html { redirect_to student_url(id: @student), notice: "Student was successfully created." }
-        format.json { render :show, status: :created, location: @student }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
+    if @student.save
+      flash[:success] = "Student was successfully created."
+      redirect_to student_url(id: @student)
+    else
+      render :new, status: :unprocessable_entity
     end
   end
 
   # PATCH/PUT /students/1 or /students/1.json
   def update
-    respond_to do |format|
-      if @student.update(student_params)
-        format.html { redirect_to student_url(@student), notice: "All set!" }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @student.errors, status: :unprocessable_entity }
-      end
+    if @student.update(student_params)
+      flash[:success] = "All set!"
+      redirect_to student_url(@student)
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
@@ -132,10 +124,8 @@ class StudentsController < ApplicationController
     log_out! if student_logged_in? @student
   
     @student.destroy
-    respond_to do |format|
-      format.html { redirect_to students_url, notice: "Student was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    flash[:success] = "Student was successfully destroyed."
+    redirect_to students_url
   end
 
   private
