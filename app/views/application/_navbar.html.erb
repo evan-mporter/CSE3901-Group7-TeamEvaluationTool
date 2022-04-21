@@ -1,5 +1,6 @@
 <nav class="navbar sticky-top navbar-expand-sm navbar-dark mb-3">
-  <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle Navigation">
+  <span class="navbar-brand"></span>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="navbar-collapse collapse" id="navbarContent">
@@ -12,10 +13,10 @@
         <%= nav_item "Groups", "users", "groups", groups_path %>
         <%= nav_item "Projects", "briefcase", "projects", projects_path %>
         <%= nav_item "Instructors", "user", "instructors", instructors_path %>
-        <%= nav_item "Logout", "sign-out", instructors_logout_path, method: "post" %>
+        <%= nav_item "Logout", "sign-out", "", instructors_logout_path, method: "post" %>
         
       <% elsif student_logged_in? %>
-        <%= nav_item "Logout", "sign-out", students_logout_path, method: "post" %>
+        <%= nav_item "Logout", "sign-out", "", students_logout_path, method: "post" %>
         
       <% end %>
 
