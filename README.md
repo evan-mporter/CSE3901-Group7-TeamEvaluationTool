@@ -5,14 +5,12 @@ their team members, and instructors to view this feedback.
 
 ### Useful Links
 
-- [In-Class Presentation Slides](https://example.com) ([in-repo copy](https://example.com))
+- [In-Class Presentation Slides](https://docs.google.com/presentation/d/1o48s52hvurLMoaTE5CMQ0-u7-w9cBnNkxgf_ow6RoVg/edit?usp=sharing)
 - [Instance running on Heroku](https://cse3901-group-7-lab-6.herokuapp.com/)
-  - You can reset the Heroku instance by going to [this page](https://cse3901-group-7-lab-6.herokuapp.com//full-system-reset-for-testing-only)
+  - You can reset the Heroku instance by going to [this page](https://cse3901-group-7-lab-6.herokuapp.com/full-system-reset-for-testing-only)
     and entering the reset key: `0c90301e-0b89-4840-b42b-0a86d3eef8d4`
 - [Techincal Design Google Doc](https://docs.google.com/document/d/1KgCAbVPM08bGoA2ufydmyairl9aemQLfCDW1XnZ03Us/edit?usp=sharing)
 - [Project Requirements](http://web.cse.ohio-state.edu/~giles.25/3901/labs/project6.html)
-
-**TODO: Fix example.com links**
 
 ### Running
 
@@ -32,3 +30,17 @@ $ rails db:migrate
 # To run
 $ rails server
 ```
+
+### Who wrote what controller
+
+- Adrian Vovk
+  - Application
+  - Evaluations
+  - FeedbackItems
+- Evan Porter
+  - Instructors
+- Kaiyuan Zheng
+  - Students 
+- Chris Zhao 
+  - Projects
+  - Groups
