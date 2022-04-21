@@ -1,29 +1,26 @@
-<p>
-  <strong>Name:</strong>
-  <%= @instructor.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @instructor.email %>
-</p>
-
-<% if inst_logged_in? @instructor %>
-
-  <p>Click <%= link_to "here", students_path %> to manage students. </p>
-
-  <p>Click <%= link_to "here", groups_path %> to manage groups. </p>
-
-  <p>Click <%= link_to "here", projects_path %> to manage projects. </p>
-
-  <p>Click <%= link_to "here", instructors_path %> to manage instructor accounts. </p>
-
-<% end %>
+<div class="card">
+  <h5 class="card-header"><%= @instructor.name %></h5>
+  <div class="card-body">
+    <p class="card-text">
+      <strong>Email:</strong>
+      <%= @instructor.email %>
+    </p>
+    <% if inst_logged_in? @instructor %>
+      <%= link_to 'Edit', edit_instructor_path(@instructor), class: "btn btn-primary" %>
+      <%= link_to 'Logout', instructors_logout_path, method: :post, data: { confirm: 'Do you want to logout?' }, class: "btn btn-danger" %>
+    <% else %>
+      <%= link_to 'Delete', @instructor, method: :delete, data: {confirm: 'Do you really want to delete this instructor?' }, class: "btn btn-danger"%>
+    <% end %>
+  </div>
+</div>
 
 <% if inst_logged_in? @instructor %>
-  <%= link_to 'Edit', edit_instructor_path(@instructor) %> |
-  <%= link_to 'Logout', instructors_logout_path, method: :post, data: { confirm: 'Do you want to logout?' } %>
-<% else %>
-  <%= link_to 'Delete', @instructor, method: :delete, data: {confirm: 'Do you really want to delete this instructor?' }%> |
-  <%= link_to 'Back', instructors_path %>
+
+  <h4 class="mt-5">Actions:</h4>
+  <div class="list-group">
+    <%= link_to "Manage Students", students_path, class: "list-group-item list-group-item-action" %>
+    <%= link_to "Manage Groups", groups_path, class: "list-group-item list-group-item-action" %>
+    <%= link_to "Manage Projects", projects_path, class: "list-group-item list-group-item-action" %>
+    <%= link_to "Manage Instructor Accounts", instructors_path, class: "list-group-item list-group-item-action" %>
+  </div>
 <% end %>

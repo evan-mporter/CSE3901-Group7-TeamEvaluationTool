@@ -18,8 +18,9 @@
 
   <div class="field">
     <%= form.label :students %>
+    <%# TODO: Clean this up %>
     <%= form.collection_check_boxes :student_ids, Student.all, :id, :name do |b|%>
-      <% b.label {b.check_box + " " + b.text} %>
+      <% ("<div>" + b.label {b.check_box + " " + b.text} + "</div>").html_safe %>
     <%end%>
   </div>
 
