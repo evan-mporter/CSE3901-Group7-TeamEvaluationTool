@@ -61,6 +61,7 @@ class InstructorsController < ApplicationController
   # GET /instructors/new
   def new
     return redirect_to root_path unless Instructor.count.zero? || inst_logged_in?
+    @mode = "signup"
     @instructor = Instructor.new
   end
 
@@ -76,7 +77,12 @@ class InstructorsController < ApplicationController
 
     if @instructor.save
       flash[:success] = "Instructor was successfully created."
-      redirect_to instructor_url(@instructor)
+      if Instructor.count == 1
+        log_in_instructor @instructor
+        return redirect_to root_path
+      else 
+        return redirect_to instructor_url(@instructor)
+      end
     else
       render :new, status: :unprocessable_entity
     end

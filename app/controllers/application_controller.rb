@@ -17,7 +17,6 @@ class ApplicationController < ActionController::Base
     # Nobody is logged in. Redirect to the login page
     else
       redirect_to login_url
-      
     end
   end
 
