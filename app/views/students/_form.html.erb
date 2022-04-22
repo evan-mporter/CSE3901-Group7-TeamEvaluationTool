@@ -31,9 +31,9 @@
   </div>
 
   <div class="field">
-    <%if inst_logged_in?%>
+    <%if inst_logged_in? && !student.signed%>
       <input type=hidden name=student[password] value=DefaultPass3901+>
-    <%else%>
+    <%elsif !inst_logged_in?%>
       <%= form.label :password %>
       <%= form.password_field :password %>
     <%end%>
