@@ -88,6 +88,7 @@ class InstructorsController < ApplicationController
       flash[:success] = "All set!"
       redirect_to instructor_url(@instructor)
     else
+      @mode = "editing"
       render :edit, status: :unprocessable_entity
     end
   end
