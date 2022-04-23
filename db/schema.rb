@@ -10,11 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_04_17_053900) do
+ActiveRecord::Schema.define(version: 2022_04_23_215622) do
 
   create_table "feedback_items", force: :cascade do |t|
     t.integer "project_id", null: false
-    t.integer "author_id", null: false
+    t.integer "author_id"
     t.integer "target_id", null: false
     t.integer "participation"
     t.integer "quality"

@@ -1,6 +1,10 @@
 <p>
   <strong>Written By:</strong>
-  <%= link_to @feedback_item.author.name, student_path(@feedback_item.author) %>
+  <% unless @feedback_item.author.nil? %>
+    <%= link_to @feedback_item.author.name, student_path(@feedback_item.author) %>
+  <% else %>
+    <abbr title="The author of this feedback item was deleted from the database by an instructor">Unknown</abbr>
+  <% end %>
 </p>
 
 <p>

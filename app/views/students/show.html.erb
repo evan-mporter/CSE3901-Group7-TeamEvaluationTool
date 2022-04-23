@@ -8,6 +8,8 @@
     <%= link_to 'Edit', edit_student_path(id: @student), class: "btn btn-primary" %>
     <% if student_logged_in? @student %>
       <%= link_to 'Logout', students_logout_path, method: :post, data: { confirm: 'Do you want to logout?' }, class: "btn btn-danger" %>
+    <% else %>
+        <%= link_to 'Delete', @student, method: :delete, data: {confirm: 'Do you really want to delete this student?' }, class: "btn btn-danger"%>
     <%end%>
   </div>
 </div>
@@ -49,7 +51,7 @@
       </li>
     <% end %>
     <% @student.feedback_items.each do |f| %>
-      <%= link_to "#{f.project.name} (by #{f.author.name})", f, class: "list-group-item list-group-item-action" %>
+      <%= link_to "#{f.project.name} (by #{f.author&.name || "Deleted Student"})", f, class: "list-group-item list-group-item-action" %>
     <% end %>
   </div>
     

@@ -1,6 +1,6 @@
 class FeedbackItem < ApplicationRecord
   belongs_to :project
-  belongs_to :author, class_name: :Student
+  belongs_to :author, class_name: :Student, optional: true
   belongs_to :target, class_name: :Student
 
   validates :participation, presence: true,
