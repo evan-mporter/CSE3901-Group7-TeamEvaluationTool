@@ -23,4 +23,15 @@ module EvaluationsHelper
     end
   end
 
+  # Helper function to make a single radio button for the
+  # evaluations form
+  def single_radio_helper(f, param, value, text)
+    active = (@feedback_item[param] == value)
+    """
+      <label class=\"btn btn-outline-secondary #{active ? "active" : ""}\">
+        #{f.radio_button param, value}
+        #{text}
+      </label>
+    """.html_safe
+  end
 end

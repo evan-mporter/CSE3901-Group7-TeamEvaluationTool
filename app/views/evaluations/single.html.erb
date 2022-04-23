@@ -1,58 +1,55 @@
-<h1>Evaluating <%= @target.name %> for <%= @project.name %></h1>
+<div class="card">
+  <h5 class="card-header">Evaluating <%= @target.name %> for <%= @project.name %></h5>
+  <div class="card-body">
+    <%= form_with model: @feedback_item, url: feedback_items_path, method: :post do |f| %>
+      <div class="form-group">
+        <%= f.label :participation, "#{@target.name} participated equally in #{@project.name}" %>
+        <div class="d-block btn-group btn-group-toggle" data-toggle="buttons">
+          <%= single_radio_helper f, :participation, 1, "Disagree" %>
+          <%= single_radio_helper f, :participation, 2, "Somewhat Disagree" %>
+          <%= single_radio_helper f, :participation, 3, "Neutral" %>
+          <%= single_radio_helper f, :participation, 4, "Somewhat Agree" %>
+          <%= single_radio_helper f, :participation, 5, "Agrree" %>
+        </div>
+      </div>
 
-<%= form_with model: @feedback_item, url: feedback_items_path, method: :post do |f| %>
-  <div class="my-4">
-    <%= f.label :participation, "#{@target.name} participated equally in #{@project.name}" %>
-    <div id="participation">
-      <span>Disagree</span>
-      <%= f.radio_button :participation, 1 %>
-      <%= f.radio_button :participation, 2 %>
-      <%= f.radio_button :participation, 3 %>
-      <%= f.radio_button :participation, 4 %>
-      <%= f.radio_button :participation, 5 %>
-      <span>Agree</span>
-    </div>
+      <div class="form-group">
+        <%= f.label :quality, "#{@target.name} produced high-quality work for #{@project.name}" %>
+        <div class="d-block btn-group btn-group-toggle" data-toggle="buttons">
+          <%= single_radio_helper f, :quality, 1, "Disagree" %>
+          <%= single_radio_helper f, :quality, 2, "Somewhat Disagree" %>
+          <%= single_radio_helper f, :quality, 3, "Neutral" %>
+          <%= single_radio_helper f, :quality, 4, "Somewhat Agree" %>
+          <%= single_radio_helper f, :quality, 5, "Agrree" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :disagreements, "You had significant conflict with #{@target.name} while working on #{@project.name}" %>
+        <div class="d-block btn-group btn-group-toggle" data-toggle="buttons">
+          <%# Note! Agreeing here is a worse score than disagreeing %>
+          <%= single_radio_helper f, :disagreements, 5, "Disagree" %>
+          <%= single_radio_helper f, :disagreements, 4, "Somewhat Disagree" %>
+          <%= single_radio_helper f, :disagreements, 3, "Neutral" %>
+          <%= single_radio_helper f, :disagreements, 2, "Somewhat Agree" %>
+          <%= single_radio_helper f, :disagreements, 1, "Agrree" %>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <%= f.label :comments %><br>
+        <%= f.text_area :comments, class: "form-control" %>
+      </div>
+
+      <div>
+        <%= link_to "Back", back_btn_url, class: "btn btn-secondary" %>
+        <%= f.submit "Continue", class: "btn btn-primary float-right" %>
+      </div>
+
+      <%# Additional data we're passing along %>
+      <%= f.hidden_field :target_id, value: @target.id %>
+      <%= f.hidden_field :project_id, value: @project.id %>
+      <%= hidden_field nil, :continue_url, value: next_btn_url %>
+    <% end %>
   </div>
-
-  <div class="my-4">
-    <%= f.label :quality, "#{@target.name} produced high-quality work for #{@project.name}" %>
-    <div id="quality">
-      <span>Disagree</span>
-      <%= f.radio_button :quality, 1 %>
-      <%= f.radio_button :quality, 2 %>
-      <%= f.radio_button :quality, 3 %>
-      <%= f.radio_button :quality, 4 %>
-      <%= f.radio_button :quality, 5 %>
-      <span>Agree</span>
-    </div>
-  </div>
-
-  <div class="my-4">
-    <%= f.label :disagreements, "You had significant disagreements with #{@target.name} while working on #{@project.name}" %>
-    <div id="disagreements">
-      <span>Disagree</span>
-      <%# Note! Agreeing here is a worse score than disagreeing %>
-      <%= f.radio_button :disagreements, 5 %>
-      <%= f.radio_button :disagreements, 4 %>
-      <%= f.radio_button :disagreements, 3 %>
-      <%= f.radio_button :disagreements, 2 %>
-      <%= f.radio_button :disagreements, 1 %>
-      <span>Agree</span>
-    </div>
-  </div>
-
-  <div class="my-4">
-    <%= f.label :comments, "" %><br>
-    <%= f.text_area :comments %>
-  </div>
-
-  <div>
-    <%= link_to "Back", back_btn_url, class: "btn btn-secondary" %>
-    <%= f.submit "Continue", class: "btn btn-primary" %>
-  </div>
-
-  <%# Additional data we're passing along %>
-  <%= f.hidden_field :target_id, value: @target.id %>
-  <%= f.hidden_field :project_id, value: @project.id %>
-  <%= hidden_field nil, :continue_url, value: next_btn_url %>
-<% end %>
+</div>

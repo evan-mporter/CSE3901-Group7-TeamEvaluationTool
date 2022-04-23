@@ -37,6 +37,7 @@ class FeedbackItemsController < ApplicationController
         bail "Form submitted successfully, but don't know where to redirect."
       end
     else
+      # TODO!
       bail "Failed to submit form: " + (feedback_item.errors.full_messages.join ", ")
     end
   end
@@ -45,7 +46,7 @@ class FeedbackItemsController < ApplicationController
     # Redirect to the referrer, with an error message
     def bail(msg)
       flash[:danger] = msg unless msg.nil?
-      redirect_back_or_to root_path # Go back to wherever the form was submitted
+      redirect_back fallback_location: root_path # Go back to wherever the form was submitted
     end
 
 end
