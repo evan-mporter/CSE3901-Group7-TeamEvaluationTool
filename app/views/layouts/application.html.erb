@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= @title || "Students Evaluation System" %></title>
+    <title><%= @title || "Student Evaluation System" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
@@ -16,7 +16,7 @@
     <%= render "navbar" %>
     <div class="container">
     	<% flash.each do |type, msg| %>
-    		<div class="alert alert-<%= type %> mb-2">
+    		<div class="alert alert-<%= type %> mb-3">
     		  <%= msg %>
     	  </div>
     	<% end %>

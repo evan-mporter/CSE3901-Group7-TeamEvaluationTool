@@ -1,8 +1,13 @@
-<% @title = "Student Login" %>
-<%= form_with url: students_email_url, local: true, method: :post do %>
-    <div>
-        <%= label_tag "email" %>
-        <%= email_field_tag "email", nil %>
-        <button type="submit">Next</button>
-    </div>
-<% end %>
+<div class="card mx-auto" style="max-width: 25rem">
+  <h5 class="card-header">Student Login</h5>
+  <div class="card-body">
+    <%= form_with url: students_email_url, local: true, method: :post do %>
+        <div class="form-group">
+            <%= label_tag :email %>
+            <%= email_field_tag :email, nil, class: "form-control" %>
+        </div>
+        <%= link_to "Back", login_path, class: "btn btn-secondary" %>
+        <button type="submit" class="btn btn-primary float-right">Next</button>
+    <% end %>
+  </div>
+</div>
