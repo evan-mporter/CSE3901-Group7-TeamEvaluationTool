@@ -15,37 +15,37 @@
     <input type=hidden name=student[signed] value=true>
   <%end%>
 
-  <div class="field">
+  <div class="form-group">
       <%= form.label :name %>
-      <%= form.text_field :name %>
+      <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <% if inst_logged_in? %>
       <%= form.label :email %>
-      <%= form.text_field :email %>
+      <%= form.text_field :email, class: "form-control" %>
     <%else%>
       <%= form.label :email %>
-      <%= form.text_field :email, disabled: true %>
+      <%= form.text_field :email, disabled: true, class: "form-control" %>
     <%end%>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%if inst_logged_in? && !student.signed%>
       <input type=hidden name=student[password] value=DefaultPass3901+>
     <%elsif !inst_logged_in?%>
       <%= form.label :password %>
-      <%= form.password_field :password %>
+      <%= form.password_field :password, class: "form-control" %>
     <%end%>
   </div>
 
-  <div class="actions">
-    <%if inst_logged_in?%>
-      <%= form.submit "Set up"%>
+  <div>
+    <%if inst_logged_in? and not @student.signed %>
+      <%= form.submit "Set Up", class: "btn btn-primary" %>
     <%elsif @mode == "signup"%>
-      <%= form.submit "Sign up account"%>
+      <%= form.submit "Activate Account", class: "btn btn-primary" %>
     <%else%>
-      <%= form.submit "Save changes"%>
+      <%= form.submit "Save changes", class: "btn btn-primary" %>
     <%end%>
   </div>
 <% end %>
