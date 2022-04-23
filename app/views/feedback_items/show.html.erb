@@ -1,40 +1,38 @@
-<p>
-  <strong>Written By:</strong>
-  <% unless @feedback_item.author.nil? %>
-    <%= link_to @feedback_item.author.name, student_path(@feedback_item.author) %>
-  <% else %>
-    <abbr title="The author of this feedback item was deleted from the database by an instructor">Unknown</abbr>
-  <% end %>
-</p>
+<div class="card">
+  <h5 class="card-header">Feedback Details</h5>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <strong>Written By:</strong>
+      <% unless @feedback_item.author.nil? %>
+        <%= link_to @feedback_item.author.name, student_path(@feedback_item.author) %>
+      <% else %>
+        <abbr title="The author of this feedback item was deleted from the database by an instructor">Unknown</abbr>
+      <% end %>
+    </li>
+    <li class="list-group-item">
+      <strong>Written About:</strong>
+      <%= link_to @feedback_item.target.name, student_path(@feedback_item.target) %>
+    </li>
+    <li class="list-group-item">
+      <strong>For Project:</strong>
+      <%= link_to @feedback_item.project.name, project_path(@feedback_item.project) %>
+    </li>
+    <li class="list-group-item">
+      <strong>Participation Score:</strong>
+      <%= @feedback_item.participation %> / 5
+      <br>
 
-<p>
-  <strong>Written About:</strong>
-  <%= link_to @feedback_item.target.name, student_path(@feedback_item.target) %>
-</p>
+      <strong>Quality Score:</strong>
+      <%= @feedback_item.quality %> / 5
+      <br>
+      
+      <strong>Disagreements Score:</strong>
+      <%= @feedback_item.disagreements %> / 5
+    </li>
 
-<p>
-  <strong>For Project:</strong>
-  <%= link_to @feedback_item.project.name, project_path(@feedback_item.project) %>
-</p>
-
-<p>
-  <strong>Participation Score:</strong>
-  <%= @feedback_item.participation %> / 5
-</p>
-
-<p>
-  <strong>Quality Score:</strong>
-  <%= @feedback_item.quality %> / 5
-</p>
-
-<p>
-  <strong>Disagreements Score:</strong>
-  <%= @feedback_item.disagreements %> / 5
-</p>
-
-<p>
-  <strong>Comments:</strong>
-  <%= @feedback_item.comments %>
-</p>
-
-<%= link_to 'Back', :back %>
+    <li class="list-group-item">
+      <h5>Comments:</h5>
+      <%= @feedback_item.comments %>
+    </li>
+  </ul>
+</div>
