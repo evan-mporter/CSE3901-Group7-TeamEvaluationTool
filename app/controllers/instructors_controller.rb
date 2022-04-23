@@ -29,7 +29,7 @@ class InstructorsController < ApplicationController
     @instructor = Instructor.find_by(email: @instructor_email)
     #redirect to signup or login based on wether the instructor is signed up
     if !@instructor
-        flash.now[:danger] = "This email is not registered. Use another one."
+        flash[:danger] = "This email is not registered. Use another one."
         return redirect_to instructors_email_url
     else
       return redirect_to url_for(action: "login_process", id: @instructor)
