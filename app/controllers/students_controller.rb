@@ -57,7 +57,7 @@ class StudentsController < ApplicationController
   # GET /students or /students.json
   def index
     #if not login then login
-    if inst_logged_in?
+    if not logged_in?
       redirect_to login_url
       return
     end
