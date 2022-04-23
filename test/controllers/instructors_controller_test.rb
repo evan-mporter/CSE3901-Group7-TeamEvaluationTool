@@ -21,19 +21,19 @@ class InstructorsControllerTest < ActionDispatch::IntegrationTest
 
   test "should redirect get index" do
     get instructors_url
-    assert_redirected_to login_url
+    assert_redirected_to "/"
   end
 
   test "should redirect get edit" do
     get edit_instructor_url(@instructor)
-    assert_redirected_to instructors_email_url
+    assert_redirected_to "/"
   end
 
   #Testing functionality before instructor log in
 
   test "should get new" do
     get new_instructor_url
-    assert_response :success
+    assert_redirected_to "/"
   end
 
   #test "should get index" do
@@ -52,7 +52,7 @@ class InstructorsControllerTest < ActionDispatch::IntegrationTest
   #This should redirect, fix error located in line 61 instructor controller, add condition to check if generally logged in and redirect.
   test "should show instructor" do
     get instructor_url(@instructor)
-    assert_response :success
+    assert_redirected_to "/"
   end
 
   #test "should get edit" do

@@ -4,26 +4,30 @@ class GroupsController < ApplicationController
 
   # GET /groups or /groups.json
   def index
+    #regular index
     @groups = Group.all
   end
 
   # GET /groups/1 or /groups/1.json
   def show
+    #only for view
   end
 
   # GET /groups/new
   def new
+    #regular new
     @group = Group.new
   end
 
   # GET /groups/1/edit
   def edit
+    #only for view
   end
 
   # POST /groups or /groups.json
   def create
+    #regular create
     @group = Group.new(group_params)
-
     if @group.save
       flash[:success] = "Group was successfully created." 
       redirect_to group_url(@group)
@@ -34,6 +38,7 @@ class GroupsController < ApplicationController
 
   # PATCH/PUT /groups/1 or /groups/1.json
   def update
+    #regular update
     if @group.update(group_params)
       flash[:success] = "Group was successfully updated."
       redirect_to group_url(@group)
@@ -44,8 +49,8 @@ class GroupsController < ApplicationController
 
   # DELETE /groups/1 or /groups/1.json
   def destroy
+    #regular destroy
     @group.destroy
-
     flash[:success] = "Group was successfully destroyed."
     redirect_to groups_url
   end

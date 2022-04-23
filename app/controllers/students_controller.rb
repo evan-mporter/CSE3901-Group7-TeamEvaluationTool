@@ -2,17 +2,19 @@ class StudentsController < ApplicationController
   before_action :set_student, only: %i[ show edit update destroy login_process check ]
 
   def login
-    redirect_to students_email_url
+    #redirect to email to check email
+    return redirect_to students_email_url
   end
 
   def login_process
+    #only for view
   end
 
   def check
+    #the login check process for student
     if @student.authenticate(params[:password])
       log_in_student(@student)
-      #TODO
-      redirect_to student_url(id: @student)
+      return redirect_to student_url(id: @student)
     else 
       flash.now[:danger] = "Wrong password!"
       render "login_process"
@@ -20,77 +22,82 @@ class StudentsController < ApplicationController
   end
 
   def logout
+    #logout the current student
     log_out!
-    redirect_to login_url
+    return redirect_to login_url
   end
 
   def email
+    #only for view
   end
 
   def signup
-    redirect_to students_email_url
+    #redirect to email to check email
+    return redirect_to students_email_url
   end
 
   def emailchecker
+    #check whether the email is registered by instructor.
     @student_email = params[:email].downcase
     @student = Student.find_by(email: @student_email)
     if !@student
         flash[:danger] = "This email is not registered. Use another one."
-        redirect_to students_email_url
+        return redirect_to students_email_url
     else
+      #if yes, then redirect to signup or login based on wether it is signed
       if @student.signed
-          redirect_to url_for(action: "login_process", id: @student)
+          return redirect_to url_for(action: "login_process", id: @student)
       else
           log_in_student @student
-          redirect_to edit_student_url(id: @student)
+          return redirect_to edit_student_url(id: @student)
       end
     end
   end
 
-
   # GET /students or /students.json
   def index
-    if not logged_in?
+    #if not login then login
+    if inst_logged_in?
       redirect_to login_url
       return
     end
-    
+    #if not instructor login then redirect to student file
     if student_logged_in?
       redirect_to student_url(current_student)
       return
     end
-    
+    #Alphabetic sort
     @students = Student.all
     @students = @students.sort
   end
 
   # GET /students/1 or /students/1.json
   def show
+    #check the ID information to allow show
     if not inst_logged_in? and not student_logged_in? @student
       redirect_to login_url
       return
     end
-    
-    #TODO
   end
 
   # GET /students/new
   def new
+    #restrict this function only to instructor
     if not inst_logged_in?
       redirect_to instructors_email_url
       return
     end
-    
+    #create student
     @student = Student.new
   end
 
   # GET /students/1/edit
   def edit
+    #redirect to edit view depends on who is logging in and whether the student is signed up.
     if not inst_logged_in? and not student_logged_in? @student
       redirect_to login_url
       return
     end
-    
     @mode = "editing"
     if !@student.signed
       @mode = "signup"
@@ -99,11 +106,12 @@ class StudentsController < ApplicationController
 
   # POST /students or /students.json
   def create
+    #create a student and record the email as lowercase
     @student = Student.new(student_params)
     @student.email = @student.email.downcase
     if @student.save
       flash[:success] = "Student was successfully created."
-      redirect_to student_url(id: @student)
+      return redirect_to student_url(id: @student)
     else
       render :new, status: :unprocessable_entity
     end
@@ -111,9 +119,10 @@ class StudentsController < ApplicationController
 
   # PATCH/PUT /students/1 or /students/1.json
   def update
+    #regular update
     if @student.update(student_params)
       flash[:success] = "All set!"
-      redirect_to student_url(@student)
+      return redirect_to student_url(@student)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -121,11 +130,11 @@ class StudentsController < ApplicationController
 
   # DELETE /students/1 or /students/1.json
   def destroy
+    #before destroy the student, log him out
     log_out! if student_logged_in? @student
-  
     @student.destroy
     flash[:success] = "Student was successfully destroyed."
-    redirect_to students_url
+    return redirect_to students_url
   end
 
   private
