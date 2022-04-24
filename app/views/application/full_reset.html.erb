@@ -1,9 +1,14 @@
-<h1>Full system reset</h1>
-<p>This will wipe out the database. Please enter the reset key to continue</p>
+<div class="card">
+  <h5 class="card-header">Full System Reset (for testing only!!)</h5>
+  <div class="card-body">
+    <p class="card-text">This will wipe out the database. Please enter the reset key to continue</p>
 
-<%= form_with url: full_system_reset_for_testing_only_path do |f| %>
-	<%= f.label :key, "" %>
-	<%= f.text_field :key %>
-	
-	<%= f.submit "Drop Database" %>
-<% end %>
+    <%= form_with url: full_system_reset_for_testing_only_path do |f| %>
+      <div class="form-group">
+    	  <%= f.label :key %>
+    	  <%= f.text_field :key, class: "form-control" %>
+    	</div>
+    	<%= f.submit "Drop Database", class: "btn btn-danger float-right" %>
+    <% end %>
+  </div>
+</div>

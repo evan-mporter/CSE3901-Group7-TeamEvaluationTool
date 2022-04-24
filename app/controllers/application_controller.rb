@@ -4,6 +4,7 @@ class ApplicationController < ActionController::Base
   def root
     # Must be a new instance! There are no instructors. Prompt to make one
     if Instructor.count.zero?
+      flash[:info] = "This is a new instance of the Student Evaluation System. Please register an instructor account to get started"
       redirect_to new_instructor_url
 
     # An instructor is logged in. Redirect to their homepage
