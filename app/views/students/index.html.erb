@@ -14,6 +14,11 @@
   </thead>
 
   <tbody>
+    <% if @students.empty? %>
+      <tr>
+        <td colspan=4>No students yet! Press "Add" to make one</td>
+      </tr>
+    <% end %>
     <% @students.each do |student| %>
       <tr>
         <td><%= student.name %></td>

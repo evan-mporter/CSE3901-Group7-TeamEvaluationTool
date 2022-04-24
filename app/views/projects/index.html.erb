@@ -13,6 +13,11 @@
   </thead>
 
   <tbody>
+    <% if @projects.empty? %>
+      <tr>
+        <td colspan=3>No projects yet! Press "Add" to make one</td>
+      </tr>
+    <% end %>
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.name %></td>
