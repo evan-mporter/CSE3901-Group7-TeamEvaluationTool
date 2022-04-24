@@ -5,5 +5,5 @@ class Instructor < ApplicationRecord
     VALID_PASSWORD_REGEX = /\A(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\W]).{8,}\z/
     validates :email, presence: true, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }, uniqueness: true
     validates :password, presence: true, length: {minimum: 8}, format: { with: VALID_PASSWORD_REGEX, message: 
-        "Password must contains at least a lowercase letter, a uppercase, a digit, a special char and 8+ chars" }
+        "must contain at least a lowercase and an uppercase letter, a digit, and a special char" }
 end
