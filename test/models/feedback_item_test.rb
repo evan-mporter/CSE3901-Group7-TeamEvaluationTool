@@ -7,9 +7,9 @@ class FeedbackItemTest < ActiveSupport::TestCase
     user1.save
     user2 = Student.new(id:2, name: "Example User", password: "Defaultpass3901+", email: "user2@example.com")
     user2.save
-    project = Project.new(id:0)
+    project = Project.new(id:1, name: "test1")
     project.save
-    @feedback_item = FeedbackItem.new(project_id: 0, author_id: 1, target_id: 2, participation: 3, quality: 4, disagreements: 5, comments: "test")
+    @feedback_item = FeedbackItem.new(project_id: 1, author_id: 1, target_id: 2, participation: 3, quality: 4, disagreements: 5, comments: "test")
   end
 
   #test wether it is valid
