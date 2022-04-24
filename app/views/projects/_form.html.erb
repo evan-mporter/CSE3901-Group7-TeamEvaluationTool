@@ -11,17 +11,17 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name %>
+    <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%= form.label :is_open %>
-    <%= form.check_box :is_open %>
+  <div class="form-group">
+    <div class="form-check">
+      <%= form.check_box :is_open, class: "form-check-input" %>
+      <%= form.label :is_open, class: "form-check-label" %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.submit class: "btn btn-primary" %>
 <% end %>
