@@ -1,10 +1,18 @@
 <div class="card">
   <h5 class="card-header"><%= @student.name %></h5>
-  <div class="card-body">
-    <p class="card-text">
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
       <strong>Email:</strong>
       <%= @student.email %>
-    </p>
+    </li>
+    <% if inst_logged_in? %>
+      <li class="list-group-item">
+        <strong>Account Activated:</strong>
+        <%= @student.signed ? "Yes" : "No" %>
+      </li>
+    <% end %>
+  </ul>
+  <div class="card-body">
     <%= link_to 'Edit', edit_student_path(id: @student), class: "btn btn-primary" %>
     <% if student_logged_in? @student %>
       <%= link_to 'Logout', students_logout_path, method: :post, data: { confirm: 'Do you want to logout?' }, class: "btn btn-danger" %>
