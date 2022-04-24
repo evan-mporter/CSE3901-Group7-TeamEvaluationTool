@@ -7,7 +7,7 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Is open</th>
+      <th>Status</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -16,7 +16,7 @@
     <% @projects.each do |project| %>
       <tr>
         <td><%= project.name %></td>
-        <td><%= project.is_open %></td>
+        <td><%= project.is_open ? "Open" : "Closed" %></td>
         <td>
           <%= link_to 'Show', project %><br>
           <%= link_to 'Edit', edit_project_path(project) %><br>

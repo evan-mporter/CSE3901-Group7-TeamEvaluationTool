@@ -1,7 +1,12 @@
 <div class="card">
   <h5 class="card-header"><%= @project.name %></h5>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">
+      <strong>Status:</strong>
+      <%= @project.is_open ? "Open" : "Closed" %>
+    </li>
+  </ul>
   <div class="card-body">
-    <p class="card-text">Is open: <%= @project.is_open %></p>
     <%= link_to 'Edit', edit_project_path(@project), class: "btn btn-primary" %>
     <%= link_to 'Delete', @project, method: :delete, data: { confirm: 'Are you sure?' }, class: "btn btn-danger" %>
   </div>
@@ -32,8 +37,8 @@
             <td><%= average_score(fbItems)%>/15</td>
             <td>
               <%= fbItems.map do |f| %>
-                <% link_to f.author.name, feedback_item_path(f)%> 
-              <%end.join(", ").html_safe%>
+                <% link_to f.author&.name || "Deleted Student", feedback_item_path(f) %> 
+              <% end.join(", ").html_safe %>
             </td>
           <%end%>
         </tr>

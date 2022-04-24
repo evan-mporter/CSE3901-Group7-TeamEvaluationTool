@@ -1,11 +1,12 @@
-<p>
-  <strong>Name:</strong>
-  <%= @group.name %>
-</p>
-
-<p>
-  <strong>Students:</strong>
-  <%= @group.students.map{|s| s.name}.join ", " %>
-</p>
-
-<%= link_to 'Edit', edit_group_path(@group) %>
+<div class="card">
+  <h5 class="card-header"><%= @group.name %></h5>
+  <ul class="list-group list-group-flush">
+      <% @group.students.each do |s| %>
+        <%= link_to s.name, s, class: "list-group-item list-group-item-action" %>
+      <% end %>
+  </ul>
+  <div class="card-body">
+    <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-primary" %>
+    <%= link_to 'Delete', @group, method: :delete, data: {confirm: 'Do you really want to delete this group?' }, class: "btn btn-danger"%>
+  </div>
+</div>

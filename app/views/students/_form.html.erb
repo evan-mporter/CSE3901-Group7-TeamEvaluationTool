@@ -1,9 +1,8 @@
 <%= form_with(model: student) do |form| %>
   <% if student.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(student.errors.count, "error") %> Notice:</h2>
-
-      <ul>
+    <div class="alert alert-danger">
+      <h4 class="alert-heading"><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h4>
+      <ul class="mb-0">
         <% student.errors.each do |error| %>
           <li><%= error.full_message %></li>
         <% end %>
@@ -15,37 +14,41 @@
     <input type=hidden name=student[signed] value=true>
   <%end%>
 
-  <div class="field">
+  <div class="form-group">
       <%= form.label :name %>
-      <%= form.text_field :name %>
+      <%= form.text_field :name, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <% if inst_logged_in? %>
-      <%= form.label :email %>
-      <%= form.text_field :email %>
-    <%else%>
-      <%= form.label :email %>
-      <%= form.text_field :email, disabled: true %>
-    <%end%>
+  <div class="form-group">
+    <%= form.label :email %>
+    <%= form.email_field :email, disabled: !inst_logged_in?, class: "form-control" %>
   </div>
 
-  <div class="field">
-    <%if inst_logged_in? && !student.signed%>
+  <div class="form-group">
+    <%if inst_logged_in? %>
       <input type=hidden name=student[password] value=DefaultPass3901+>
+      <input type=hidden name=student[signed] value=false>
+      <% if student.signed %>
+        <p class="form-text text-warning">By editing this student's information,
+        you will also reset their password & deactivate their account. This student
+        will be prompted to create a new password and re-activate their account
+        the next time they log in</p>
+      <% end %>
     <%elsif !inst_logged_in?%>
       <%= form.label :password %>
-      <%= form.password_field :password %>
+      <%= form.password_field :password, class: "form-control" %>
     <%end%>
   </div>
 
-  <div class="actions">
-    <%if inst_logged_in?%>
-      <%= form.submit "Set up"%>
+  <div>
+    <%if inst_logged_in? and not @student.signed %>
+      <%= form.submit "Set Up", class: "btn btn-primary" %>
     <%elsif @mode == "signup"%>
-      <%= form.submit "Sign up account"%>
+      <%= form.submit "Activate Account", class: "btn btn-primary" %>
+    <% elsif inst_logged_in? %>
+      <%= form.submit "Save changes and deactivate account", class: "btn btn-danger" %>
     <%else%>
-      <%= form.submit "Save changes"%>
+      <%= form.submit "Save changes", class: "btn btn-primary" %>
     <%end%>
   </div>
 <% end %>

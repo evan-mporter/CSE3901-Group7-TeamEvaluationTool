@@ -16,7 +16,7 @@
     <% @groups.each do |group| %>
       <tr>
         <td><%= group.name %></td>
-        <td><%= group.students.map{|s| s.name}.join ", " %></td>
+        <td><%= group.students.map{ |s| link_to s.name, s }.join(", ").html_safe %></td>
         <td>
           <%= link_to 'Show', group %><br>
           <%= link_to 'Edit', edit_group_path(group) %><br>

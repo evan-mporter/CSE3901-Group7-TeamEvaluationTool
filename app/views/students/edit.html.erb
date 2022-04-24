@@ -1,18 +1,18 @@
-<% if @mode != "signup" %>
-    <% @title = "Information Edit" %>
-    <h1>Editing Information</h1>
-<%else%>
-    <%if student_logged_in?%>
-        <% @title = "Sign up" %>
-        <h1>Sign up account</h1>
-        <p>Your account is not signed up yet. Please sign up.
-        <p>Please verify that the name below is yours. Contact instructors for questions or update your name.
-    <%else%>
-        <h1>Edit basic account information for student sign up.</h1>
-    <%end%>
-<%end%>
-<%= render 'form', student: @student, ins_mode: params[:mode], sign_mode: @mode %>
-
-<% if @mode != "signup" %>
-    <%= link_to 'Back', @student %>
-<%end%>
+<div class="card">
+  <h5 class="card-header">
+    <% if @mode != "signup" %>
+      Edit Student Information
+    <% elsif student_logged_in? %>
+      Activate Your Account
+    <% else %>
+      Edit Account Information for Student Sign-Up
+    <% end %>
+  </h5>
+  <div class="card-body">
+    <% if @mode == "signup" and student_logged_in? %>
+      <p class="card-text">Your account is not activated yet. Please activate your account</p>
+      <p class="card-text">Please verify that the name below is yours. Contact the instructors for questions or to update your name.</p>
+    <% end %>
+    <%= render 'form', student: @student, ins_mode: params[:mode], sign_mode: @mode %>
+  </div>
+</div>

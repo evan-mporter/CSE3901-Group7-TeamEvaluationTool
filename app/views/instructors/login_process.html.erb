@@ -1,11 +1,13 @@
-<% @title = "Instructor Login" %>
-
-<p>Please enter your password below</p>
-
-<%= form_with url: url_for(action: "login_process", id: @instructor), local: true, method: :post do %>
-    <div>
-        <%= label_tag "password" %>
-        <%= password_field_tag "password", nil %>
-        <button type="submit">Sign in</button>
-    </div>
-<% end %>
+<div class="card mx-auto" style="max-width: 25rem">
+  <h5 class="card-header">Instructor Login</h5>
+  <div class="card-body">
+    <%= form_with url: url_for(action: "login_process", id: @instructor), local: true, method: :post do %>
+        <div class="form-group">
+            <%= label_tag :password %>
+            <%= password_field_tag :password, nil, class: "form-control" %>
+        </div>
+        <%= link_to "Back", students_email_path, class: "btn btn-secondary" %>
+        <button type="submit" class="btn btn-primary float-right">Sign In</button>
+    <% end %>
+  </div>
+</div>

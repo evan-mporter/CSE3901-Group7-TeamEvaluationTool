@@ -1,9 +1,11 @@
-<h1>Done!</h1>
-
-<p>You've finished evaluating <%= @group.name %> for <%= @project.name %>.
-You may still go back and edit your responses, or leave this page.</p>
-
-<div>
-  <%= link_to "Back", back_btn_url, class: "btn btn-secondary" %>
-  <%= link_to "Finish", students_path, class: "btn btn-primary" %>
+<div class="jumbotron">
+  <h1 class="display-4">Done!</h1>
+  <p>You've finished evaluating <%= @group.name %> for <%= @project.name %></p>
+  <hr class="my-3">
+  <p>If you wish, you may still go back and edit your responses.</p>
+  
+  <div class="lead">
+    <%= link_to "Back", back_btn_url, class: "btn btn-secondary btn-lg" %>
+    <%= link_to "Finish", students_path, class: "btn btn-primary btn-lg" %>
+  </div>
 </div>
