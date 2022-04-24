@@ -5,11 +5,11 @@ their team members, and instructors to view this feedback.
 
 ### Useful Links
 
-- [In-Class Presentation Slides](https://docs.google.com/presentation/d/1o48s52hvurLMoaTE5CMQ0-u7-w9cBnNkxgf_ow6RoVg/edit?usp=sharing)
 - [Instance running on Heroku](https://cse3901-group-7-lab-6.herokuapp.com/)
   - You can reset the Heroku instance by going to [this page](https://cse3901-group-7-lab-6.herokuapp.com/full-system-reset-for-testing-only)
     and entering the reset key: `0c90301e-0b89-4840-b42b-0a86d3eef8d4`
-- [Techincal Design Google Doc](https://docs.google.com/document/d/1KgCAbVPM08bGoA2ufydmyairl9aemQLfCDW1XnZ03Us/edit?usp=sharing)
+- [Techincal Design Google Doc](https://docs.google.com/document/d/1KgCAbVPM08bGoA2ufydmyairl9aemQLfCDW1XnZ03Us/edit?usp=sharing) ([local copy](doc/design.pdf))
+- [In-Class Presentation Slides](https://docs.google.com/presentation/d/1o48s52hvurLMoaTE5CMQ0-u7-w9cBnNkxgf_ow6RoVg/edit?usp=sharing) ([local copy](doc/presentation.pdf))
 - [Project Requirements](http://web.cse.ohio-state.edu/~giles.25/3901/labs/project6.html)
 
 ### Running
@@ -44,3 +44,5 @@ $ rails server
 - Chris Zhao 
   - Projects
   - Groups
+
+You can see more detailed authorship info via git, as always!
