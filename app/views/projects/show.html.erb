@@ -12,7 +12,9 @@
   </div>
 </div>
 
-<h4 class="mt-5">Per-Group Breakdown:</h4>
+<% if Group.any? %>
+  <h4 class="mt-5">Per-Group Breakdown:</h4>
+<% end %>
 <% Group.all.each do |g| %>
 <div class="card my-3">
   <h5 class="card-header"><%= g.name %></h5>
@@ -26,6 +28,11 @@
     </thead>
 
     <tbody>
+      <% if g.students.empty? %>
+        <tr>
+          <td colspan=3>This group has no students</td>
+        </tr>
+      <% end %>
       <% g.students.each do |s|%>
         <tr>
           <td><%= s.name%></td>

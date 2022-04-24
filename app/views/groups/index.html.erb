@@ -13,6 +13,11 @@
   </thead>
 
   <tbody>
+    <% if @groups.empty? %>
+      <tr>
+        <td colspan=3>No groups yet! Press "Add" to make one</td>
+      </tr>
+    <% end %>
     <% @groups.each do |group| %>
       <tr>
         <td><%= group.name %></td>

@@ -1,9 +1,12 @@
 <div class="card">
   <h5 class="card-header"><%= @group.name %></h5>
   <ul class="list-group list-group-flush">
-      <% @group.students.each do |s| %>
-        <%= link_to s.name, s, class: "list-group-item list-group-item-action" %>
-      <% end %>
+    <% if @group.students.empty? %>
+      <li class="list-group-item disabled">Group has no members...</li>
+    <% end %>
+    <% @group.students.each do |s| %>
+      <%= link_to s.name, s, class: "list-group-item list-group-item-action" %>
+    <% end %>
   </ul>
   <div class="card-body">
     <%= link_to 'Edit', edit_group_path(@group), class: "btn btn-primary" %>

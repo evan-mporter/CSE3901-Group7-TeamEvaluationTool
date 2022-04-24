@@ -35,6 +35,15 @@
     </thead>
 
     <tbody>
+      <% if @student.groups.empty? %>
+        <tr>
+          <td colspan=4>You haven't been assigned to any groups yet. Check back later</td>
+        </tr>
+      <% elsif Project.where(is_open: true).empty? %>
+        <tr>
+          <td colspan=4>Currently, there are no open projects. Check back later</td>
+        </tr>
+      <% end %>
       <% @student.groups.each do |g| %>
         <% Project.all.each do |p| %>
           <% next unless p.is_open %>
