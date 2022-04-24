@@ -21,18 +21,20 @@
   </div>
 
   <div class="form-group">
-    <% if inst_logged_in? %>
-      <%= form.label :email %>
-      <%= form.text_field :email, class: "form-control" %>
-    <%else%>
-      <%= form.label :email %>
-      <%= form.text_field :email, disabled: true, class: "form-control" %>
-    <%end%>
+    <%= form.label :email %>
+    <%= form.text_field :email, disabled: !inst_logged_in?, class: "form-control" %>
   </div>
 
   <div class="form-group">
-    <%if inst_logged_in? && !student.signed%>
+    <%if inst_logged_in? %>
       <input type=hidden name=student[password] value=DefaultPass3901+>
+      <input type=hidden name=student[signed] value=false>
+      <% if student.signed %>
+        <p class="form-text text-warning">By editing this student's information,
+        you will also reset their password & deactivate their account. This student
+        will be prompted to create a new password and re-activate their account
+        the next time they log in</p>
+      <% end %>
     <%elsif !inst_logged_in?%>
       <%= form.label :password %>
       <%= form.password_field :password, class: "form-control" %>
@@ -44,6 +46,8 @@
       <%= form.submit "Set Up", class: "btn btn-primary" %>
     <%elsif @mode == "signup"%>
       <%= form.submit "Activate Account", class: "btn btn-primary" %>
+    <% elsif inst_logged_in? %>
+      <%= form.submit "Save changes and deactivate account", class: "btn btn-danger" %>
     <%else%>
       <%= form.submit "Save changes", class: "btn btn-primary" %>
     <%end%>
