@@ -3,7 +3,7 @@ require "test_helper"
 require "test_helper"
 
 class InstructorTest < ActiveSupport::TestCase
-  #set up a student
+  #set up a instructor
   def setup
     @instructor = Instructor.new(name: "Example User", password: "Defaultpass3901+", email: "user@example.com")
   end
