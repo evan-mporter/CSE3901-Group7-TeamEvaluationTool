@@ -16,6 +16,7 @@
     <%= render "navbar" %>
     <div class="container">
     	<% flash.each do |type, msg| %>
+    	  <% next if type == "feedback_items_error" %>
     		<div class="alert alert-<%= type %> mb-3">
     		  <%= msg %>
     	  </div>

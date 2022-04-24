@@ -2,6 +2,19 @@
   <h5 class="card-header">Evaluating <%= @target.name %> for <%= @project.name %></h5>
   <div class="card-body">
     <%= form_with model: @feedback_item, url: feedback_items_path, method: :post do |f| %>
+
+      <% if flash.key? :feedback_items_error %>
+        <% errors = flash[:feedback_items_error] %>
+        <div class="alert alert-danger">
+          <h4 class="alert-heading"><%= pluralize(errors.size, "error") %> prohibited this evaluation from being saved:</h4>
+          <ul class="mb-0">
+            <% errors.each do |error| %>
+              <li><%= error %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
+
       <div class="form-group">
         <%= f.label :participation, "#{@target.name} participated equally in #{@project.name}" %>
         <div class="d-block btn-group btn-group-toggle" data-toggle="buttons">

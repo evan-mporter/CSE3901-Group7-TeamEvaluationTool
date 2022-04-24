@@ -20,7 +20,8 @@ class FeedbackItemsController < ApplicationController
 
     # Make sure we're not submitting to a closed project
     unless Project.find_by(id: form_params[:project_id])&.is_open
-      return bail "Project is closed"
+      flash[:danger] = "Form submitted successfully, but don't know where to redirect."
+      return redirect_back fallback_location: root_path
     end
 
     # Try to find an existing FeedbackItem, if possible
@@ -34,19 +35,13 @@ class FeedbackItemsController < ApplicationController
       unless params[:continue_url].nil?
         redirect_to params[:continue_url]
       else
-        bail "Form submitted successfully, but don't know where to redirect."
+        flash[:success] = "Form submitted successfully, but don't know where to redirect."
+        return redirect_back fallback_location: root_path
       end
     else
-      # TODO!
-      bail "Failed to submit form: " + (feedback_item.errors.full_messages.join ", ")
+      # TODO: This is a gross hack, but it works. Oh well, it'll do
+      flash[:feedback_items_error] = feedback_item.errors.full_messages
+      return redirect_back fallback_location: root_path
     end
   end
-
-  private
-    # Redirect to the referrer, with an error message
-    def bail(msg)
-      flash[:danger] = msg unless msg.nil?
-      redirect_back fallback_location: root_path # Go back to wherever the form was submitted
-    end
-
 end
